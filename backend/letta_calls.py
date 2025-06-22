@@ -122,8 +122,10 @@ class MedicineExplainer(Agent):
                 }
             ]
         )
+        print(response)
         for message in response.messages:
-            if message.role == "assistant_message":
+            if message.message_type == "assistant_message":
+                print(message)
                 return message.content
     
 class PillIdentifier(Agent):
@@ -160,7 +162,7 @@ class PillIdentifier(Agent):
             ]
         )
         for message in response.messages:
-            if message.role == "assistant_message":
+            if message.message_type == "assistant_message":
                 return message.content
     
 class ConversationalInterface(Agent):

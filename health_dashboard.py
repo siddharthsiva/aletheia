@@ -201,7 +201,7 @@ if st.session_state.tab == "dashboard":
                 st.session_state[f"show_explain_{i}"] = not st.session_state.get(f"show_explain_{i}", False)
             if st.session_state.get(f"show_explain_{i}", False):
                 with st.expander("Medication Explanation", expanded=True):
-                    explanation = medicine_explainer.medical_explainer(med["name"])
+                    explanation = medicine_explainer.medicine_explainer(med["name"])
                     st.write(explanation)
 
     # --- Sync times after all UI, before any other rerun ---
@@ -386,6 +386,7 @@ elif st.session_state.tab == "scan":
         st.image(image, width=300)
         response = pill_identifier.pill_identifier(image)
         st.write(response)
+        analysis = medicine_explainer.medicine_explainer(response)
 
     if st.button("Analyze Image"):
         st.success("✅ Image analysis complete. (Simulated)")
