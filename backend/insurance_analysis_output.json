@@ -42,5 +42,43 @@
     "https://www.bbb.org/us/ct/bloomfield/profile/health-insurance/cigna-health-and-life-insurance-company-0111-87002078",
     "https://www.jdpower.com/business/insurance/health-insurance-study",
     "https://www.consumerreports.org/health-insurance/"
-  ]
+  ],
+    "name": "UnitedHealthcare",
+    "trust_index": 3.5,
+    "coverage_quality": 55,
+    "affordability": 40,
+    "customer_service": 30,
+    "alternatives": [
+        {
+            "name": "Kaiser Permanente",
+            "trust_index": 7.0
+        },
+        {
+            "name": "Aetna",
+            "trust_index": 4.5
+        },
+        {
+            "name": "Cigna",
+            "trust_index": 4.0
+        },
+        {
+            "name": "Anthem (Elevance Health)",
+            "trust_index": 4.0
+        }
+    ],
+    "reviews": [
+        "My premiums with UnitedHealthcare have inexplicably surged this year, making our small business group plan almost unaffordable, despite no changes in our claims history. It feels like they just raise prices without justification.",
+        "Getting treatments approved by UnitedHealthcare is a nightmare; they denied a crucial procedure our doctor recommended, citing their internal criteria, which seems arbitrary and focused on cost-cutting.",
+        "The recent reports about UnitedHealthcare using AI algorithms to deny care are deeply concerning and confirm my personal experiences with constant prior authorization hurdles and delayed approvals.",
+        "Dealing with UnitedHealthcare's customer service after a claim denial felt like hitting a brick wall. Long hold times, conflicting information, and no resolution insight, forcing me to appeal multiple times.",
+        "While UnitedHealthcare offers a wide network, the constant battle over what they'll actually cover, combined with unexpected out-of-pocket expenses, means their 'coverage' often feels more like a facade."
+    ],
+    "description": "UnitedHealthcare is the largest division of UnitedHealth Group, a diversified health and well-being company. It provides health benefit programs for individuals, employers, and Medicare/Medicaid beneficiaries. It is one of the largest health insurers in the United States, offering a vast array of plans across most states.\n•  Allegations of widespread claim denials, particularly for mental health services, emergency care, and post-acute care, leading to numerous class-action lawsuits.\n•  Recent highly publicized scrutiny and lawsuits over the alleged use of the 'Naviguard' AI algorithm to deny or prematurely cut off patient care, often overriding medical professionals' recommendations.\n•  Frequent consumer complaints regarding unexplained and significant premium increases, high deductibles, and unexpected out-of-pocket costs, impacting affordability for many policyholders.\n•  Persistent issues with customer service quality, including excessively long wait times, difficulty reaching knowledgeable representatives, and challenges in resolving complex billing or claims issues.\n•  Accusations of anti-competitive practices in various markets, aimed at stifling competition and controlling healthcare providers.",
+    "links": [
+        "https://www.propublica.org/article/unitedhealth-healthcare-ai-medicare-advantage-denial",
+        "https://www.nytimes.com/2023/07/07/well/mind/unitedhealthcare-mental-health-claims-lawsuit.html",
+        "https://www.bbb.org/us/mn/minnetonka/profile/health-insurance/unitedhealthcare-group-0704-50000001",
+        "https://kffhealthnews.org/news/unitedhealthcare-medicare-advantage-ai-denial-lawsuit/"
+    ]
+
 }

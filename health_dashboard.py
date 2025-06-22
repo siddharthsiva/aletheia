@@ -1081,25 +1081,56 @@ elif st.session_state.tab == "insurance":
     insurance_data = None
 
     if run_analysis and provider.strip():
+        # Clear any previous analysis data to prevent cache issues
+        if "insurance_analysis_cache" in st.session_state:
+            del st.session_state["insurance_analysis_cache"]
+        
         with st.spinner("🔍 Running comprehensive insurance analysis..."):
+            # Create unique context for this specific provider
             context = (
+                f"User is requesting analysis for {provider} insurance company. "
                 "User is a 32-year-old freelance graphic designer living in Los Angeles, earning "
                 "≈ $85k/year pre-tax with irregular cash-flow, mild asthma, type-2 diabetes family "
                 "history, newly married and planning children in ≤ 3 yrs. Needs PPO that covers "
                 "Cedars-Sinai + UCLA, strong maternity, fears high deductibles after a $4k ER bill, "
                 "values ESG & companies with clean denial records, wants first-class mobile app, "
-                "travels abroad ~6×/yr."
+                "travels abroad ~6×/yr. Please analyze specifically {provider} and provide alternatives."
             )
             try:
-                insurance_data = analyze_insurance(provider, context)
+                # Force fresh analysis by passing clear provider name
+                insurance_data = analyze_insurance(provider.strip(), context)
+                
+                # Save analysis with timestamp and provider name for debugging
+                analysis_filename = f"backend/insurance_analysis_{provider.replace(' ', '_')}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+                with open(analysis_filename, "w", encoding="utf-8") as f:
+                    json.dump({
+                        "provider": provider,
+                        "timestamp": datetime.now().isoformat(),
+                        "analysis": insurance_data
+                    }, f, ensure_ascii=False, indent=4)
+                    
+                # Also save to the main output file
                 with open("backend/insurance_analysis_output.json", "w", encoding="utf-8") as f:
-                    json.dump(insurance_data, f, ensure_ascii=False, indent=4)
-                st.success("✅ Analysis complete!")
+                    json.dump({
+                        "provider": provider,
+                        "timestamp": datetime.now().isoformat(),
+                        "analysis": insurance_data
+                    }, f, ensure_ascii=False, indent=4)
+                    
+                st.success(f"✅ Analysis complete for {provider}!")
+                
             except Exception as e:
-                st.error(f"❌ Failed to analyze: {e}")
+                st.error(f"❌ Failed to analyze {provider}: {e}")
                 insurance_data = None
 
     if insurance_data:
+        # Verify we're showing the correct provider analysis
+        st.markdown(f"""
+        <div style="background: var(--warning-gradient); border-radius: 15px; padding: 1rem; margin: 1rem 0; text-align: center;">
+            <strong>📊 Analysis Results for: {provider}</strong>
+        </div>
+        """, unsafe_allow_html=True)
+        
         # Trust Index Display with enhanced styling
         st.markdown("""
         <div style="background: var(--card-gradient); backdrop-filter: blur(25px); border-radius: 25px; 
@@ -1120,7 +1151,7 @@ elif st.session_state.tab == "insurance":
                 {trust} / 10
             </div>
             <p style="text-align: center; font-size: 1.2rem; color: #6b7280; margin-bottom: 1rem;">
-                {provider or 'Selected Provider'}
+                {provider}
             </p>
             """, unsafe_allow_html=True)
             st.progress(int(trust * 10), f"Trust Score: {trust}/10")
@@ -1192,13 +1223,16 @@ elif st.session_state.tab == "insurance":
             <h3>📝 Company Background & Analysis</h3>
         """, unsafe_allow_html=True)
         
+        # Show provider name again to confirm correct analysis
+        st.markdown(f"**Analyzing: {provider}**")
+        
         desc = insurance_data.get("description", "")
         if isinstance(desc, list):
             desc = "\n".join(desc)
         if desc:
             st.markdown(desc)
         else:
-            st.info("No detailed company information available.")
+            st.info(f"No detailed company information available for {provider}.")
             
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -1225,7 +1259,16 @@ elif st.session_state.tab == "insurance":
         st.markdown("</div>", unsafe_allow_html=True)
             
     elif run_analysis:
-        st.error("❌ Insurance analysis returned no usable data.")
+        st.error(f"❌ Insurance analysis returned no usable data for {provider}.")
+        
+    # Debug section (can be uncommented for troubleshooting)
+    # if st.checkbox("🔧 Show Debug Info"):
+    #     st.write(f"Current provider input: '{provider}'")
+    #     st.write(f"Analysis button clicked: {run_analysis}")
+    #     if 'insurance_data' in locals():
+    #         st.write(f"Insurance data received: {bool(insurance_data)}")
+    #     if insurance_data:
+    #         st.write("Raw insurance data:", insurance_data)
 
     # Back button
     if st.button("← Back to Dashboard", use_container_width=True):
