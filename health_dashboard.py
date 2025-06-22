@@ -1,6 +1,13 @@
 import streamlit as st
 from datetime import datetime, time
 import json
+import os
+from backend.user_data import (
+    read_medical_history,
+    write_medical_history,
+    read_doctor_notes,
+    append_doctor_notes
+)
 
 st.cache_data.clear()
 st.cache_resource.clear()
@@ -170,6 +177,52 @@ if st.session_state.tab == "dashboard":
                 st.session_state.new_med_name = ""
                 st.success("Medication added.")
                 st.rerun()
+
+    st.markdown("---")
+
+    # --- Notes & Medical History Section ---
+    st.subheader("📝 Medical History & Doctor Notes")
+
+    if st.session_state.profile.get("full_name"):
+        user_file = f"users/{st.session_state.profile['full_name']}.json"
+
+        if not os.path.exists("users"):
+            os.makedirs("users")
+
+        if not os.path.exists(user_file):
+            with open(user_file, 'w') as f:
+                json.dump({"medical_history": [], "doctor_notes": []}, f)
+
+        st.markdown("**📚 Medical History**")
+        med_hist = read_medical_history(st.session_state.profile["full_name"])
+        if med_hist:
+            for entry in med_hist:
+                st.markdown(f"- {entry}")
+        else:
+            st.info("No medical history entries yet.")
+
+        new_entry = st.text_input("Add Medical History Entry")
+        if st.button("➕ Add History"):
+            write_medical_history(st.session_state.profile["full_name"], new_entry)
+            st.success("Added to medical history.")
+            st.rerun()
+
+        st.markdown("---")
+        st.markdown("**👩‍⚕️ Doctor's Notes**")
+        doc_notes = read_doctor_notes(st.session_state.profile["full_name"])
+        if doc_notes:
+            for note in doc_notes:
+                st.markdown(f"- {note}")
+        else:
+            st.info("No doctor notes recorded.")
+
+        new_note = st.text_input("Add Doctor Note")
+        if st.button("➕ Add Doctor Note"):
+            append_doctor_notes(st.session_state.profile["full_name"], new_note)
+            st.success("Doctor note added.")
+            st.rerun()
+    else:
+        st.warning("Please fill out and submit your profile to enable history tracking.")
 
     st.markdown("---")
     col_btn1, col_btn2 = st.columns(2)
