@@ -310,12 +310,13 @@ elif st.session_state.tab == "insurance":
     st.markdown('<div class="insurance-container">', unsafe_allow_html=True)
     st.title("🛡️ Insurance Review")
 
-    provider = st.text_input("Insurance Provider")
+    provider = st.text_input("Insurance Provider").strip()
+    print(provider)
     run_analysis = st.button("Submit Provider")
     insurance_data = None
 
     if run_analysis and provider.strip():
-        with st.spinner("🔍 Running Gemini insurance analysis..."):
+        with st.spinner("🔍 Running insurance analysis..."):
             context = (
                 "User is a 32-year-old freelance graphic designer living in Los Angeles, earning "
                 "≈ $85k/year pre-tax with irregular cash-flow, mild asthma, type-2 diabetes family "
