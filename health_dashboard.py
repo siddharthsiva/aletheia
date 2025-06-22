@@ -11,6 +11,7 @@ from backend.user_data import (
 from backend.insurance_probe import analyze_insurance
 from backend.letta_calls import *
 from backend.general_history import *
+import pandas as pd
 
 st.cache_data.clear()
 st.cache_resource.clear()
@@ -107,6 +108,8 @@ if st.session_state.tab == "dashboard":
         st.markdown("### Profile Description")
         st.file_uploader("", type=["png", "jpg", "jpeg"])
         full_name = st.text_input("Full Name")
+        if full_name:
+            st.session_state.first_name = full_name.split()[0] if full_name.strip() else "profile"
         contact = st.text_input("Contact Number")
         email = st.text_input("Email Address")
         consultant = st.text_input("Healthcare Consultant", value="Dr. Sarah Johnson", disabled=True)
@@ -120,10 +123,15 @@ if st.session_state.tab == "dashboard":
                     data = json.loads(response) if isinstance(response, str) else response
                     st.session_state.uploaded_medical_history = data.get("medical_history", {})
                     st.session_state.uploaded_doctors_note = data.get("doctor's note", "")
-                    st.session_state.first_name = full_name.split()[0] if full_name.strip() else "profile"
+                    st.session_state.uploaded_bmi = data.get("bmi", {})
+                    st.session_state.uploaded_height = data.get("height", {})
+                    st.session_state.uploaded_bp = data.get("bp", {})
+                    # st.session_state.first_name = full_name.split()[0] if full_name.strip() else "profile"
                     append_doctor_notes(st.session_state.first_name, st.session_state.uploaded_doctors_note)
                     write_medical_history(st.session_state.first_name, st.session_state.uploaded_medical_history)
-                    st.write("Medical history and doctor's note extracted and stored in session state.")
+                    append_user_stats(st.session_state.first_name, st.session_state.uploaded_bmi, st.session_state.uploaded_height, st.session_state.uploaded_bp)
+                    st.write("Medical history, doctor's note, and user information extracted and stored in session state.")
+                    st.write(data.get("summary", ""))
                 except Exception as e:
                     st.error(f"Failed to parse uploaded document: {e}")
             else:
@@ -137,28 +145,79 @@ if st.session_state.tab == "dashboard":
             # "history": history
         })
 
-        if st.button("Submit Profile"):
-            first_name = full_name.split()[0] if full_name.strip() else "profile"
-            filename = f"{first_name}.json"
-            with open(filename, "w") as f:
-                json.dump(st.session_state.profile, f, indent=4)
-            st.session_state.profile_saved = True
-            st.success(f"✅ Profile saved to {filename}")
-
 # --- Dashboard Tab ---
 if st.session_state.tab == "dashboard":
     st.title("🌸 Health Tracker Dashboard")
+    with open(f'users/{st.session_state.first_name}.json', 'r') as f:
+        data = json.load(f)
 
     col1, col2, col3 = st.columns(3)
+    # Prepare data for metrics and charts
+    bmi_values = data.get('bmi', [])
+    height_values = data.get('height', [])
+    bp_values = data.get('bp', [])
+
+    # Convert to DataFrame for plotting if possible
+    def to_df(values, label):
+        # Accepts list of dicts with 'value' and optional 'date', or just values
+        if not values:
+            return pd.DataFrame()
+        if isinstance(values[0], dict):
+            df = pd.DataFrame(values)
+            if 'date' in df.columns:
+                df = df.sort_values('date')
+            if 'value' in df.columns:
+                df = df.rename(columns={'value': label})
+            return df
+        else:
+            return pd.DataFrame({label: values})
+
+    bmi_df = to_df(bmi_values, 'BMI')
+    height_df = to_df(height_values, 'Height')
+    bp_df = to_df(bp_values, 'Blood Pressure')
+
+    metric_style = """
+    <style>
+    .small-metric .stMetricLabel, .small-metric .stMetricValue {
+        font-size: 16px !important;
+    }
+    </style>
+    """
+    st.markdown(metric_style, unsafe_allow_html=True)
+
     with col1:
-        st.metric("Daily Steps", "8,432", "+12% vs yesterday")
-        st.line_chart([4000, 6000, 7000, 6500, 8432])
+        with st.container():
+            st.markdown('<div class="small-metric">', unsafe_allow_html=True)
+            latest_bmi = bmi_df['BMI'].iloc[-1] if not bmi_df.empty else "N/A"
+            st.metric("BMI", latest_bmi)
+            st.markdown('</div>', unsafe_allow_html=True)
+        if not bmi_df.empty:
+            st.line_chart(
+                bmi_df.set_index('date') if 'date' in bmi_df.columns else bmi_df,
+                height=180,
+            )
     with col2:
-        st.metric("Weight Tracking", "68.5 kg", "-0.5 kg this week")
-        st.line_chart([70, 69.5, 69, 68.8, 68.5])
+        with st.container():
+            st.markdown('<div class="small-metric">', unsafe_allow_html=True)
+            latest_height = height_df['Height'].iloc[-1] if not height_df.empty else "N/A"
+            st.metric("Height", latest_height)
+            st.markdown('</div>', unsafe_allow_html=True)
+        if not height_df.empty:
+            st.line_chart(
+                height_df.set_index('date') if 'date' in height_df.columns else height_df,
+                height=180,
+            )
     with col3:
-        st.metric("Blood Pressure", "120/80", "Normal range")
-        st.line_chart([130, 125, 122, 118, 120])
+        with st.container():
+            st.markdown('<div class="small-metric">', unsafe_allow_html=True)
+            latest_bp = bp_df['Blood Pressure'].iloc[-1] if not bp_df.empty else "N/A"
+            st.metric("Blood Pressure", latest_bp)
+            st.markdown('</div>', unsafe_allow_html=True)
+        if not bp_df.empty:
+            st.line_chart(
+                bp_df.set_index('date') if 'date' in bp_df.columns else bp_df,
+                height=180,
+            )
 
     col_left, col_right = st.columns([2, 1])
     with col_left:
@@ -388,6 +447,11 @@ elif st.session_state.tab == "scan":
         response = pill_identifier.pill_identifier(image)
         st.write(response)
         analysis = medicine_explainer.medicine_explainer(response)
+        if isinstance(analysis, dict) and "doctor's note" in analysis:
+            try:
+                append_doctor_notes(st.session_state.first_name, analysis["doctor's note"])
+            except:
+                print("Unable to add because no registered user!")
         st.write(analysis)
 
     if st.button("Analyze Image"):

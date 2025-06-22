@@ -77,10 +77,425 @@
 "status": "completed"
 }
 ]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Managed with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Managed with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
+},
+{
+"patient_info": {
+"name": "John Doe",
+"date_of_birth": "1985-07-14",
+"gender": "Male",
+"height": "5 ft 11 in (180 cm)",
+"weight": "170 lbs (77 kg)",
+"bmi": 23.8,
+"blood_pressure": "118/76 mmHg",
+"allergies": "None"
+},
+"current_medications": [
+{
+"medication": "Lisinopril",
+"dosage": "10mg",
+"frequency": "Daily",
+"indication": "Hypertension"
+},
+{
+"medication": "Atorvastatin",
+"dosage": "20mg",
+"frequency": "Daily",
+"indication": "High cholesterol"
+}
+],
+"medical_conditions": [
+{
+"condition": "Hypertension",
+"diagnosis_date": "2019",
+"status": "Well-controlled with medication"
+},
+{
+"condition": "High cholesterol",
+"diagnosis_date": "2020",
+"status": "Well-controlled with medication"
+}
+],
+"recent_visits": [
+{
+"date": "2024-11-12",
+"type": "Routine check-up",
+"notes": "Labs ordered"
+},
+{
+"date": "2025-04-05",
+"type": "Follow-up visit",
+"notes": "Blood pressure stable"
+}
+],
+"significant_events": [
+{
+"date": "2023",
+"event": "Annual physical - no major concerns"
+}
+]
 }
 ],
 "doctor_notes": [
 "Medical document analysis completed. Patient record shows name as John Doe with DOB 1990-05-14, but user reference indicates Bob.json - potential name discrepancy noted for verification. Successfully extracted complete medical history including current hypertension management with Lisinopril, seasonal allergy treatment, vitamin D supplementation, and recent routine check-up. Penicillin allergy documented. All medical data has been structured and organized for official record keeping.",
-"Repeated medical document analysis. Persistent name discrepancy between document (John Doe) and user reference (Bob.json) requires immediate clarification. Medical history extraction completed with standard protocol, documenting ongoing conditions of hypertension, seasonal allergies, and vitamin D deficiency, along with most recent routine check-up."
+"Repeated medical document analysis. Persistent name discrepancy between document (John Doe) and user reference (Bob.json) requires immediate clarification. Medical history extraction completed with standard protocol, documenting ongoing conditions of hypertension, seasonal allergies, and vitamin D deficiency, along with most recent routine check-up.",
+"Reviewed comprehensive medical record for John Doe. Patient has well-managed hypertension and high cholesterol with appropriate medications (Lisinopril and Atorvastatin). Recent visits show stable blood pressure control. BMI within normal range at 23.8. No known allergies. Overall health status appears good with proper medication compliance and regular monitoring.",
+"Analyzed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications. Recent follow-up shows stable blood pressure control. BMI within normal range. No allergies documented. Patient appears compliant with treatment regimen and maintains regular follow-up care.",
+"Reviewed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications (Lisinopril 10mg daily and Atorvastatin 20mg daily). Recent follow-up visit shows stable blood pressure control. BMI within normal range at 23.8. No allergies documented. Patient maintains regular follow-up care and appears compliant with treatment regimen.",
+"Reviewed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications (Lisinopril 10mg daily and Atorvastatin 20mg daily). Recent follow-up visit shows stable blood pressure control. BMI within normal range at 23.8. No allergies documented. Patient maintains regular follow-up care and appears compliant with treatment regimen.",
+"Reviewed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications (Lisinopril 10mg daily and Atorvastatin 20mg daily). Recent follow-up visit shows stable blood pressure control. BMI within normal range at 23.8. No allergies documented. Patient maintains regular follow-up care and appears compliant with treatment regimen.",
+"Reviewed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications (Lisinopril 10mg daily and Atorvastatin 20mg daily). Recent follow-up visit shows stable blood pressure control. BMI within normal range at 23.8. No allergies documented. Patient maintains regular follow-up care and appears compliant with treatment regimen.",
+"Reviewed comprehensive medical record for John Doe. Patient demonstrates excellent management of hypertension and hyperlipidemia with appropriate medications (Lisinopril 10mg daily and Atorvastatin 20mg daily). Recent follow-up visit shows stable blood pressure control. BMI within normal range at 23.8. No allergies documented. Patient maintains regular follow-up care and appears compliant with treatment regimen."
+],
+"bmi": [
+"23.8",
+"23.8",
+"24.8",
+"23.8"
+],
+"height": [
+"5 ft 11 in (180 cm)",
+"5 ft 11 in (180 cm)",
+"5 ft 11 in (180 cm)"
+],
+"bp": [
+"118/76 mmHg",
+"118/76 mmHg",
+"118/76 mmHg"
 ]
 }

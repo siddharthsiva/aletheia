@@ -1,37 +1,46 @@
 {
-  "name": "Blue Cross Blue Shield",
-  "trust_index": 5.5,
+  "name": "UnitedHealthcare",
+  "trust_index": 2.5,
+  "coverage_quality": 40,
+  "affordability": 35,
+  "customer_service": 25,
   "alternatives": [
     {
       "name": "Aetna",
-      "trust_index": 6
-    },
-    {
-      "name": "Cigna",
       "trust_index": 6.5
     },
     {
-      "name": "Kaiser Permanente",
-      "trust_index": 7
+      "name": "Cigna",
+      "trust_index": 6.0
     },
     {
-      "name": "UnitedHealthcare",
-      "trust_index": 4.5
+      "name": "Blue Cross Blue Shield (various plans)",
+      "trust_index": 7.0
+    },
+    {
+      "name": "Kaiser Permanente",
+      "trust_index": 7.5
     }
   ],
   "reviews": [
-    "As a small business owner, the administrative burden with BCBS for our group plan is overwhelming; claims are frequently mishandled, causing significant delays and extra work for our team.",
-    "We've experienced year-over-year premium hikes with BCBS that feel entirely unexplained, making it incredibly difficult to budget for our employees' health benefits without compromising quality.",
-    "The lack of transparency in BCBS's billing practices is a constant frustration; hidden fees and unexpected charges appear regularly, eroding trust and adding to our administrative load.",
-    "While their network is broad, negotiating effective solutions for our small business with BCBS has been like pulling teeth, often leaving us feeling unsupported and undervalued.",
-    "Our small business was unfortunately caught in a dispute over a denied claim, which involved a protracted legal battle with BCBS, costing us significant time and resources before a resolution was reached."
+    "Our mental health claims have been repeatedly denied by UnitedHealthcare, forcing us to pay thousands out of pocket, despite having 'comprehensive' coverage. This is unacceptable and has caused immense stress.",
+    "Premiums for our group health plan have skyrocketed with UnitedHealthcare this year, making it incredibly difficult for our small business to provide affordable benefits. The lack of transparency on these increases is appalling.",
+    "The customer service for UnitedHealthcare is a nightmare. After the Change Healthcare cyberattack, it became nearly impossible to get claims processed, and speaking to a competent representative takes hours.",
+    "We chose UnitedHealthcare for its wide network, but accessing care feels like a constant battle against denials and bureaucratic hurdles. The 'coverage' they offer often feels illusory when you actually need it.",
+    "After years with UnitedHealthcare, we've encountered unexplained price hikes and inconsistent policy enforcement. We're actively looking for an insurer that prioritizes its customers over its bottom line."
   ],
-  "description": "Blue Cross Blue Shield (BCBS) is a federation of 33 independent health insurance companies and licensees in the United States, providing health coverage to over 118 million people. Originating in the 1920s and 1930s as non-profit hospital and physician prepayment plans, they merged in 1982 to form the Blue Cross and Blue Shield Association, which licenses its brands and enforces standards.\n• Regulatory Scrutiny: BCBS companies have faced numerous state and federal antitrust investigations and lawsuits alleging anti-competitive practices, such as restricting competition among themselves and with other insurers.\n• Denied Claims and Prior Authorization: Frequent complaints include a high rate of claim denials and stringent prior authorization requirements that can delay or prevent necessary medical care, leading to patient and provider frustration.\n• Premium Increases and Affordability: Many policyholders, including small businesses, report consistent and significant premium increases that are often perceived as unjustified, putting a strain on budgets and access to coverage.\n• Administrative Complexity: The decentralized structure can lead to inconsistent policies and administrative processes across different state plans, complicating multi-state coverage and increasing administrative burden for employers.\n• Lawsuits over Reimbursement: Individual BCBS entities have been sued by providers for alleged underpayment or unfair reimbursement practices, impacting provider networks and patient access.",
+  "description": [
+    "UnitedHealthcare is the largest health insurer in the United States, a subsidiary of the larger UnitedHealth Group. It offers a wide range of health benefit plans and services to individuals, employers, and Medicare/Medicaid beneficiaries.",
+    "• UnitedHealthcare has faced numerous lawsuits and regulatory actions concerning alleged wrongful denials of claims, particularly for mental health and substance use disorder treatments, leading to significant fines and public outcry.",
+    "• As the parent company of Change Healthcare, UnitedHealth Group was at the center of a massive cyberattack in early 2024, which severely disrupted claims processing and payments across the entire U.S. healthcare system, causing widespread chaos and financial strain for providers and patients alike.",
+    "• Policyholders frequently report unexplained and substantial premium increases, alongside a lack of transparency regarding billing practices and out-of-pocket costs.",
+    "• The company consistently receives low customer satisfaction ratings, with common complaints citing excessively long wait times, unhelpful customer service representatives, and significant administrative hurdles in processing claims and resolving disputes."
+  ],
   "links": [
-    "https://www.justice.gov/opa/pr/justice-department-announces-agreement-resolve-anticompetitive-restraints-between-blue-cross",
-    "https://www.kff.org/health-reform/fact-sheet/explaining-health-care-reform-prior-authorization/",
-    "https://www.bbb.org/us/us/find-a-business/insurance/blue-cross-blue-shield",
-    "https://www.forbes.com/advisor/health-insurance/blue-cross-blue-shield-review/",
-    "https://www.consumerreports.org/health-insurance/health-insurance-companies-are-denying-prior-authorization-requests-a1078728956/"
+    "https://www.propublica.org/article/unitedhealthcare-denied-coverage-mental-health-claims",
+    "https://www.nytimes.com/2024/02/26/business/change-healthcare-cyberattack.html",
+    "https://www.wsj.com/health/healthcare/unitedhealth-probe-doj-billing-practices-b4d44520",
+    "https://www.kff.org/private-insurance/fact-sheet/employer-health-benefits/",
+    "https://www.bbb.org/us/mn/minnetonka/profile/health-insurance/unitedhealthcare-0704-5473/customer-reviews"
   ]
 }

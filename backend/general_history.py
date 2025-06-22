@@ -35,3 +35,28 @@ def read_doctor_notes(name):
     with open(f'users/{name}.json', 'r') as f:
         data = json.load(f)
     return data["doctor_notes"]
+
+def append_user_stats(name, bmi, height, bp):
+    with open(f'users/{name}.json', 'r') as f:
+        data = json.load(f)
+    # Ensure the keys exist
+    if 'bmi' not in data:
+        data['bmi'] = []
+    if 'height' not in data:
+        data['height'] = []
+    if 'bp' not in data:
+        data['bp'] = []
+    # Only append if values are not empty
+    if bmi:
+        data['bmi'].append(bmi)
+    if height:
+        data['height'].append(height)
+    if bp:
+        data['bp'].append(bp)
+    with open(f'users/{name}.json', 'w') as f:
+        json.dump(data, f, indent=0)
+
+def read_user_stats(name):
+    with open(f'users/{name}.json', 'r') as f:
+        data = json.load(f)
+    return data['bmi'], data['height'], data['bp']
