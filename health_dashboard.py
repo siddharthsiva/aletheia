@@ -387,6 +387,7 @@ elif st.session_state.tab == "scan":
         response = pill_identifier.pill_identifier(image)
         st.write(response)
         analysis = medicine_explainer.medicine_explainer(response)
+        st.write(analysis)
 
     if st.button("Analyze Image"):
         st.success("✅ Image analysis complete. (Simulated)")
