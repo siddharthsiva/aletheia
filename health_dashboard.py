@@ -94,7 +94,7 @@ if "medications" not in st.session_state:
 st.session_state.missed_medications = []
 st.session_state.current_time = datetime.now()
 for medication in st.session_state.medications:
-    if medication.time < st.session_state.current_time:
+    if medication["time"] < st.session_state.current_time.time():
         st.session_state.missed_medications.append({"name": medication.name})
 
 if "new_med_name" not in st.session_state:
@@ -125,7 +125,7 @@ if st.session_state.tab == "dashboard":
             "contact": contact,
             "email": email,
             "consultant": consultant,
-            "history": history
+            # "history": history
         })
 
         if st.button("Submit Profile"):
@@ -189,7 +189,7 @@ if st.session_state.tab == "dashboard":
         st.session_state.medications.pop(delete_index)
         st.rerun()
 
-    if st.session_state.missed_medications.length != 0:
+    if len(st.session_state.missed_medications) != 0:
         with st.expender("Missed medications", expanded=False):
             for i, med in enumerate(st.session_state.missed_medications):
                 st.write(med["name"])
