@@ -1,46 +1,83 @@
 {
-  "name": "UnitedHealthcare",
-  "trust_index": 2.5,
-  "coverage_quality": 40,
-  "affordability": 35,
-  "customer_service": 25,
+  "name": "Cigna",
+  "trust_index": 4.5,
+  "coverage_quality": 60,
+  "affordability": 55,
+  "customer_service": 45,
   "alternatives": [
     {
       "name": "Aetna",
       "trust_index": 6.5
     },
     {
-      "name": "Cigna",
-      "trust_index": 6.0
+      "name": "Humana",
+      "trust_index": 6
     },
     {
       "name": "Blue Cross Blue Shield (various plans)",
       "trust_index": 7.0
     },
     {
-      "name": "Kaiser Permanente",
-      "trust_index": 7.5
+      "name": "Blue Cross Blue Shield",
+      "trust_index": 6
     }
   ],
   "reviews": [
-    "Our mental health claims have been repeatedly denied by UnitedHealthcare, forcing us to pay thousands out of pocket, despite having 'comprehensive' coverage. This is unacceptable and has caused immense stress.",
-    "Premiums for our group health plan have skyrocketed with UnitedHealthcare this year, making it incredibly difficult for our small business to provide affordable benefits. The lack of transparency on these increases is appalling.",
-    "The customer service for UnitedHealthcare is a nightmare. After the Change Healthcare cyberattack, it became nearly impossible to get claims processed, and speaking to a competent representative takes hours.",
-    "We chose UnitedHealthcare for its wide network, but accessing care feels like a constant battle against denials and bureaucratic hurdles. The 'coverage' they offer often feels illusory when you actually need it.",
-    "After years with UnitedHealthcare, we've encountered unexplained price hikes and inconsistent policy enforcement. We're actively looking for an insurer that prioritizes its customers over its bottom line."
+    "Cigna recently denied my critical physical therapy claims, citing an 'algorithm' and making it impossible to get actual medical review. My treatment was essential, and now I'm facing huge bills.",
+    "The premiums for our small business group plan have skyrocketed over the past two years with Cigna, making it incredibly difficult to provide affordable coverage for our employees. We're constantly looking for alternatives.",
+    "Dealing with Cigna's customer service is a nightmare. Long wait times, representatives who can't answer complex questions, and constant transfers. Getting a resolution for even simple issues is a full-time job.",
+    "My claim for a necessary procedure was initially denied by Cigna without explanation. After weeks of appeals and providing extensive documentation, it was finally approved, but the stress and hassle were immense.",
+    "While some routine claims go through smoothly, any slightly complex or expensive medical issue seems to face immediate pushback or denial from Cigna. It feels like they're designed to make accessing care difficult."
   ],
   "description": [
-    "UnitedHealthcare is the largest health insurer in the United States, a subsidiary of the larger UnitedHealth Group. It offers a wide range of health benefit plans and services to individuals, employers, and Medicare/Medicaid beneficiaries.",
-    "• UnitedHealthcare has faced numerous lawsuits and regulatory actions concerning alleged wrongful denials of claims, particularly for mental health and substance use disorder treatments, leading to significant fines and public outcry.",
-    "• As the parent company of Change Healthcare, UnitedHealth Group was at the center of a massive cyberattack in early 2024, which severely disrupted claims processing and payments across the entire U.S. healthcare system, causing widespread chaos and financial strain for providers and patients alike.",
-    "• Policyholders frequently report unexplained and substantial premium increases, alongside a lack of transparency regarding billing practices and out-of-pocket costs.",
-    "• The company consistently receives low customer satisfaction ratings, with common complaints citing excessively long wait times, unhelpful customer service representatives, and significant administrative hurdles in processing claims and resolving disputes."
+    "Cigna Group, formerly Cigna, is an American multinational managed healthcare and insurance company formed in 1982 by the merger of Connecticut General Life Insurance Company and INA Corporation. It provides health insurance, dental plans, life insurance, and other health-related services, serving millions of customers globally, including a significant presence in the employer-sponsored and individual health insurance markets.",
+    "• **Automated Claim Denials Controversy:** In February 2024, ProPublica and STAT News reported that Cigna used an automated system, the PxDx tool, and employed two doctors to deny hundreds of thousands of claims within a month without individual patient file review, leading to widespread consumer outcry and potential legal action.",
+    "• **Lawsuits over Denials:** Following reports of automated denials, Cigna has faced a wave of new class-action lawsuits alleging that the company unlawfully denied medically necessary care by using algorithms instead of proper medical review.",
+    "• **Consistent Customer Service Complaints:** Across various review platforms, customers frequently report long wait times, difficulty reaching knowledgeable representatives, and frustrating processes for resolving billing errors or denied claims.",
+    "• **Rising Premiums and Out-of-Pocket Costs:** Many policyholders, particularly small business owners like yourself, express frustration over continuous premium increases and high deductibles, co-pays, and co-insurance, which can lead to significant out-of-pocket expenses even with coverage."
   ],
   "links": [
-    "https://www.propublica.org/article/unitedhealthcare-denied-coverage-mental-health-claims",
-    "https://www.nytimes.com/2024/02/26/business/change-healthcare-cyberattack.html",
-    "https://www.wsj.com/health/healthcare/unitedhealth-probe-doj-billing-practices-b4d44520",
-    "https://www.kff.org/private-insurance/fact-sheet/employer-health-benefits/",
-    "https://www.bbb.org/us/mn/minnetonka/profile/health-insurance/unitedhealthcare-0704-5473/customer-reviews"
+    "https://www.propublica.org/article/cigna-doctors-alleged-denied-300000-claims-30-days",
+    "https://www.classaction.org/news/cigna-lawsuits-pile-up-after-report-details-automated-denial-process.html",
+    "https://www.bbb.org/us/ct/bloomfield/profile/health-insurance/cigna-health-and-life-insurance-company-0111-87002078",
+    "https://www.jdpower.com/business/insurance/health-insurance-study",
+    "https://www.consumerreports.org/health-insurance/"
+  ],
+  "name": "UnitedHealthcare",
+  "trust_index": 3.5,
+  "coverage_quality": 55,
+  "affordability": 40,
+  "customer_service": 30,
+  "alternatives": [
+    {
+      "name": "Kaiser Permanente",
+      "trust_index": 7.0
+    },
+    {
+      "name": "Aetna",
+      "trust_index": 4.5
+    },
+    {
+      "name": "Cigna",
+      "trust_index": 4.0
+    },
+    {
+      "name": "Anthem (Elevance Health)",
+      "trust_index": 4.0
+    }
+  ],
+  "reviews": [
+    "My premiums with UnitedHealthcare have inexplicably surged this year, making our small business group plan almost unaffordable, despite no changes in our claims history. It feels like they just raise prices without justification.",
+    "Getting treatments approved by UnitedHealthcare is a nightmare; they denied a crucial procedure our doctor recommended, citing their internal criteria, which seems arbitrary and focused on cost-cutting.",
+    "The recent reports about UnitedHealthcare using AI algorithms to deny care are deeply concerning and confirm my personal experiences with constant prior authorization hurdles and delayed approvals.",
+    "Dealing with UnitedHealthcare's customer service after a claim denial felt like hitting a brick wall. Long hold times, conflicting information, and no resolution insight, forcing me to appeal multiple times.",
+    "While UnitedHealthcare offers a wide network, the constant battle over what they'll actually cover, combined with unexpected out-of-pocket expenses, means their 'coverage' often feels more like a facade."
+  ],
+  "description": "UnitedHealthcare is the largest division of UnitedHealth Group, a diversified health and well-being company. It provides health benefit programs for individuals, employers, and Medicare/Medicaid beneficiaries. It is one of the largest health insurers in the United States, offering a vast array of plans across most states.\n•  Allegations of widespread claim denials, particularly for mental health services, emergency care, and post-acute care, leading to numerous class-action lawsuits.\n•  Recent highly publicized scrutiny and lawsuits over the alleged use of the 'Naviguard' AI algorithm to deny or prematurely cut off patient care, often overriding medical professionals' recommendations.\n•  Frequent consumer complaints regarding unexplained and significant premium increases, high deductibles, and unexpected out-of-pocket costs, impacting affordability for many policyholders.\n•  Persistent issues with customer service quality, including excessively long wait times, difficulty reaching knowledgeable representatives, and challenges in resolving complex billing or claims issues.\n•  Accusations of anti-competitive practices in various markets, aimed at stifling competition and controlling healthcare providers.",
+  "links": [
+    "https://www.propublica.org/article/unitedhealth-healthcare-ai-medicare-advantage-denial",
+    "https://www.nytimes.com/2023/07/07/well/mind/unitedhealthcare-mental-health-claims-lawsuit.html",
+    "https://www.bbb.org/us/mn/minnetonka/profile/health-insurance/unitedhealthcare-group-0704-50000001",
+    "https://kffhealthnews.org/news/unitedhealthcare-medicare-advantage-ai-denial-lawsuit/"
   ]
 }

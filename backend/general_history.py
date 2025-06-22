@@ -60,3 +60,29 @@ def read_user_stats(name):
     with open(f'users/{name}.json', 'r') as f:
         data = json.load(f)
     return data['bmi'], data['height'], data['bp']
+
+def append_medication(name, medication, medication_time):
+    with open(f'users/{name}.json', 'r') as f:
+        data = json.load(f)
+    if 'medications' not in data:
+        data['medications'] = []
+    if 'medication_times' not in data:
+        data['medication_times'] = []
+    if medication:
+        data['medications'].append(medication)
+        data['medication_times'].append(medication_time)
+    if medication:
+        # Convert time object to string if needed
+        if isinstance(medication_time, time):
+            med_time_str = medication_time.strftime("%H:%M")
+        else:
+            med_time_str = str(medication_time)
+        data['medications'].append(medication)
+        data['medication_times'].append(med_time_str)
+    with open(f'users/{name}.json', 'w') as f:
+        json.dump(data, f, indent=0)
+
+def read_user_medications(name):
+    with open(f'users/{name}.json', 'r') as f:
+        data = json.load(f)
+    return data['medications']
