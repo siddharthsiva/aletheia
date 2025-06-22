@@ -143,47 +143,105 @@ class PillIdentifier(Agent):
         return PillIdentifier._instance
     
     def pill_identifier(self, image):
-        result = prod_img(image)
-        if result is None:
-            return "Could not extract information"
-        return json.dumps(result, indent=2)
-    
-    def pill_explainer(self, identification_json):
-        response = client.agents.messages.create(
-            agent_id=os.getenv("PILL_IDENTIFIER_ID"),
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"Please use the identification json from our image identifier to provide information on the provided medicine: {identification_json}"
-                }
-            ]
-        )
-        for message in response.messages:
-            if message.message_type == "assistant_message":
-                return message.content
-    
-    def find_cheapest_price(self, identification_json):
         try:
-            drug_info = json.loads(identification_json)
-            drug_name = drug_info.get("generic_name") or drug_info.get("brand_name")
+            print(f"DEBUG: Calling prod_img with image type: {type(image)}")
+            result = prod_img(image)
+            print(f"DEBUG: prod_img returned: {result} (type: {type(result)})")
+            
+            if result is None:
+                return "Could not extract information from the image"
+            
+            # Handle different return types from prod_img
+            if isinstance(result, str):
+                # If it's already a string, check if it's valid JSON
+                try:
+                    json.loads(result)  # Test if it's valid JSON
+                    return result
+                except json.JSONDecodeError:
+                    # If it's not valid JSON, treat it as a simple string response
+                    return result
+            elif isinstance(result, dict):
+                # If it's a dictionary, convert to JSON
+                return json.dumps(result, indent=2)
+            else:
+                # For any other type, convert to string
+                return str(result)
+                
+        except Exception as e:
+            error_msg = f"Error in pill identification: {str(e)}"
+            print(f"DEBUG: {error_msg}")
+            return error_msg
+    
+    def pill_explainer(self, medication_name):
+        try:
+            print(f"DEBUG: Explaining medication: {medication_name}")
+            response = client.agents.messages.create(
+                agent_id=os.getenv("PILL_IDENTIFIER_ID"),
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"Please provide information on the provided medicine: {medication_name}"
+                    }
+                ]
+            )
+            for message in response.messages:
+                if message.message_type == "assistant_message":
+                    return message.content
+        except Exception as e:
+            error_msg = f"Error explaining medication: {str(e)}"
+            print(f"DEBUG: {error_msg}")
+            return error_msg
+
+    def find_cheapest_price(self, medication_name):
+        try:
+            print(f"DEBUG: Finding price for: {medication_name}")
+            
+            # Handle different input types
+            drug_name = None
+            if isinstance(medication_name, str):
+                try:
+                    # Try to parse as JSON first
+                    drug_info = json.loads(medication_name)
+                    drug_name = drug_info.get("generic_name") or drug_info.get("brand_name")
+                except json.JSONDecodeError:
+                    # If not JSON, use the string directly as drug name
+                    drug_name = medication_name.strip()
+            elif isinstance(medication_name, dict):
+                drug_name = medication_name.get("generic_name") or medication_name.get("brand_name")
+            else:
+                drug_name = str(medication_name)
+                
             if not drug_name:
                 return {"error": "Drug name not found in extracted info."}
 
             prompt = f"""
-            Find the cheapest US online pharmacies selling '{drug_name}'.
-            Provide a list in JSON format with:
-            - pharmacy name
-            - estimated price
-            - direct link (if available)
-            Only return the JSON list. No explanation.
+            Find and return the link for the cheapest price of the drug named '{drug_name}'.
+            Make sure it is from a reputable source.
+            Return the link in a JSON with the following fields. Include no other text in your response:
+            {{
+                "drug_name": "{drug_name}",
+                "price": "<price>",
+                "link": "<link>"
+            }}
             """
 
-            model = genai.GenerativeModel(model_name="gemini-1.5-pro")
+            model = genai.GenerativeModel(model_name="gemini-2.5-flash")
             response = model.generate_content(prompt)
-            return json.loads(response.text)
+            
+            # Clean the response text to extract JSON
+            response_text = response.text.strip()
+            # Remove markdown code blocks if present
+            if response_text.startswith("```json"):
+                response_text = response_text[7:]
+            if response_text.endswith("```"):
+                response_text = response_text[:-3]
+            
+            return json.loads(response_text.strip())
 
         except Exception as e:
-            return {"error": f"Gemini price search failed: {str(e)}"}
+            error_msg = f"Gemini price search failed: {str(e)}"
+            print(f"DEBUG: {error_msg}")
+            return {"error": error_msg}
 
 class ConversationalInterface(Agent):
     _instance = None
@@ -202,27 +260,28 @@ class ConversationalInterface(Agent):
         return ConversationalInterface._instance
     
     def conversation(self, query):
-        response = client.agents.messages.create(
-            agent_id=os.getenv("CONVERSATIONAL_INTERFACE_ID"),
-            messages=[
-                {
-                    "role": "user",
-                    "content": f"{query}"
-                }
-            ]
-        )
-        for message in response.messages:
-            if message.message_type == "assistant_message":
-                # Defensive: check if content is not empty and is valid JSON
-                try:
-                    if not message.content or not message.content.strip().startswith("{"):
-                        # Not JSON, return as plain text
-                        return message.content
-                    json_message = json.loads(message.content)
-                    return json_message.get("Response", message.content)
-                except Exception:
-                    # If parsing fails, return the raw content
-                    return message.content
+        try:
+            print(f"DEBUG: Conversational query: {query}")
+            response = client.agents.messages.create(
+                agent_id=os.getenv("CONVERSATIONAL_INTERFACE_ID"),
+                messages=[
+                    {
+                        "role": "user",
+                        "content": f"{query}"
+                    }
+                ]
+            )
+            for message in response.messages:
+                if message.message_type == "assistant_message":
+                    # Handle different response formats
+                    content = message.content
+                    if isinstance(content, dict):
+                        return content.get("Response", content.get("response", str(content)))
+                    return content
+        except Exception as e:
+            error_msg = f"Conversation error: {str(e)}"
+            print(f"DEBUG: {error_msg}")
+            return error_msg
 
 # Export for cleaner imports
 __all__ = [

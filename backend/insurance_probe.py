@@ -23,7 +23,7 @@ context = None
 prompt_template = """
 You are an uncompromising insurance-industry intelligence engine.
 
-TASK ▶ For the insurer "{{insurance_query}}", analyse reputation, lawsuits, reviews, and
+TASK ▶ For the insurer "{insurance_query}", analyse reputation, lawsuits, reviews, and
 tailor results to the USER_CONTEXT. Respond **only** with valid JSON matching:
 
 DO NOT DEFAULT TO BLUE SHIELD OF CALIFORNIA, DO NOT DEFAULT TO ANY INSURER, DO NOT DEFAULT TO ANYTHING.
@@ -42,7 +42,7 @@ MAKE SURE YOU SEARCH UP THE INSURANCE QUERY AND PROVIDE A DETAILED RESPONSE.
 Rules:
 • Bullet lines inside description start with "• ".
 • No keys beyond the schema. No markdown, no commentary, no code fences.
-USER_CONTEXT: {{context}}
+USER_CONTEXT: {context}
 
 For the links, make sure the URLs are valid and point to reputable sources. 
 Notable sources include:

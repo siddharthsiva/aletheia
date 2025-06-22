@@ -1,0 +1,49 @@
+{
+    "provider": "United Health",
+    "timestamp": "2025-06-22T11:45:41.498804",
+    "analysis": {
+        "name": "UnitedHealthcare",
+        "trust_index": 4.0,
+        "coverage_quality": 55,
+        "affordability": 60,
+        "customer_service": 40,
+        "alternatives": [
+            {
+                "name": "Aetna",
+                "trust_index": 6.5
+            },
+            {
+                "name": "Cigna",
+                "trust_index": 6.0
+            },
+            {
+                "name": "Elevance Health (formerly Anthem)",
+                "trust_index": 6.8
+            },
+            {
+                "name": "Humana",
+                "trust_index": 7.0
+            }
+        ],
+        "reviews": [
+            "Our small business group plan with UnitedHealthcare has seen inexplicable premium increases year over year, making it incredibly difficult to budget and retain employees. The value just isn't there anymore.",
+            "Trying to get a complex claim approved is a nightmare. UnitedHealthcare's prior authorization process feels designed to deny care, especially for mental health services. It's a constant battle.",
+            "The customer service is consistently poor. Long hold times, unhelpful representatives, and a lack of transparency when trying to understand billing issues. Resolving anything takes multiple calls and endless frustration.",
+            "The recent Change Healthcare cyberattack severely disrupted our ability to submit claims and process payments. While not entirely their fault, UnitedHealthcare's handling and communication during the crisis were inadequate and left us scrambling.",
+            "While the network is extensive, the constant struggle with denied services and unexpected out-of-pocket costs outweighs the benefit. It feels like they look for reasons not to cover things."
+        ],
+        "description": [
+            "UnitedHealthcare, a division of UnitedHealth Group, is one of the largest health insurance providers in the United States, offering a wide range of health benefit plans for individuals, employers, and Medicare/Medicaid beneficiaries.",
+            "• **Mental Health Parity Violations:** UnitedHealthcare has faced numerous lawsuits and regulatory fines for allegedly violating mental health parity laws by denying or limiting coverage for mental health and substance abuse treatment more stringently than medical care. Notable cases include a 2023 settlement with New York's Department of Financial Services and past actions by the California Department of Managed Health Care.",
+            "• **Change Healthcare Cyberattack:** In early 2024, its subsidiary, Change Healthcare, experienced a major cyberattack that severely disrupted prescription processing and payment services for providers and patients nationwide, leading to significant financial and operational challenges across the healthcare system.",
+            "• **Prior Authorization and Claims Denials:** The company frequently receives criticism and has faced legal challenges regarding its stringent prior authorization policies and a high rate of claims denials, which critics argue impede necessary medical care and increase patient out-of-pocket costs.",
+            "• **Customer Service Dissatisfaction:** Public reviews and industry reports consistently highlight concerns about UnitedHealthcare's customer service, including long wait times, difficulty resolving complex issues, and lack of transparency in billing."
+        ],
+        "links": [
+            "https://www.dfs.ny.gov/reports_and_publications/press_releases/pr2023030201",
+            "https://www.reuters.com/business/healthcare-pharmaceuticals/unitedhealth-says-hackers-accessed-patient-data-after-change-healthcare-attack-2024-04-22/",
+            "https://www.consumerfinance.gov/about-us/newsroom/cfpb-to-probe-health-care-payment-companies-amid-change-healthcare-cyberattack/",
+            "https://www. FierceHealthcare.com/payer/unitedhealthcare-sued-california-over-alleged-er-claim-denials"
+        ]
+    }
+}
