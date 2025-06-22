@@ -8,27 +8,14 @@ from backend.user_data import (
     read_doctor_notes,
     append_doctor_notes
 )
+from backend.insurance_probe import analyze_insurance
 
 st.cache_data.clear()
 st.cache_resource.clear()
 
 st.set_page_config(page_title="Health Tracker", layout="wide")
 
-
-# ── 1. LOAD GEMINI ANALYSIS JSON ───────────────────────────────────────────
-@st.cache_data(show_spinner=False)
-def load_insurance_json(path="./backend/insurance_analysis_output.json"):
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        st.warning(f"Could not read {path}: {e}")
-        return None
-
-insurance_data = load_insurance_json()
-
-
-# --- Custom CSS for Modern Pink UI ---
+# --- Custom CSS ---
 st.markdown("""
 <style>
 html, body, .main {
@@ -194,7 +181,6 @@ if st.session_state.tab == "dashboard":
 
     st.markdown("---")
 
-    # --- Notes & Medical History Section ---
     st.subheader("📝 Medical History & Doctor Notes")
 
     if st.session_state.profile.get("full_name"):
@@ -202,7 +188,6 @@ if st.session_state.tab == "dashboard":
 
         if not os.path.exists("users"):
             os.makedirs("users")
-
         if not os.path.exists(user_file):
             with open(user_file, 'w') as f:
                 json.dump({"medical_history": [], "doctor_notes": []}, f)
@@ -250,33 +235,48 @@ if st.session_state.tab == "dashboard":
             st.rerun()
 
 # --- Insurance Tab ---
-# --- Insurance Tab ---
 elif st.session_state.tab == "insurance":
     st.markdown('<div class="insurance-container">', unsafe_allow_html=True)
     st.title("🛡️ Insurance Review")
 
-    # 2. Provider input (optional – it just echoes back)
     provider = st.text_input("Insurance Provider")
+    run_analysis = st.button("Submit Provider")
+    insurance_data = None
 
-    # 3. Show Gemini data if available
+    if run_analysis and provider.strip():
+        with st.spinner("🔍 Running Gemini insurance analysis..."):
+            context = (
+                "User is a 32-year-old freelance graphic designer living in Los Angeles, earning "
+                "≈ $85k/year pre-tax with irregular cash-flow, mild asthma, type-2 diabetes family "
+                "history, newly married and planning children in ≤ 3 yrs. Needs PPO that covers "
+                "Cedars-Sinai + UCLA, strong maternity, fears high deductibles after a $4k ER bill, "
+                "values ESG & companies with clean denial records, wants first-class mobile app, "
+                "travels abroad ~6×/yr."
+            )
+            try:
+                insurance_data = analyze_insurance(provider, context)
+                with open("backend/insurance_analysis_output.json", "w", encoding="utf-8") as f:
+                    json.dump(insurance_data, f, ensure_ascii=False, indent=2)
+            except Exception as e:
+                st.error(f"❌ Failed to analyze: {e}")
+                insurance_data = None
+
     if insurance_data:
-        # 3-A  Trust Index
         st.subheader("📈 Overall Trust Index")
         trust = insurance_data.get("trust_index", 0)
         st.metric(label=f"{provider or 'Selected provider'}", value=f"{trust} / 10")
         st.progress(int(trust * 10))
 
-        # 3-B  Alternatives
         st.subheader("🏆 Alternatives (Trust Index)")
         col1, col2 = st.columns(2)
         alts = insurance_data.get("alternatives", [])
-        left  = alts[: len(alts)//2 + len(alts)%2]
+        left = alts[: len(alts)//2 + len(alts)%2]
         right = alts[len(left):]
 
         def render_alt(column, items):
             with column:
                 for alt in items:
-                    name  = alt.get("name", "—")
+                    name = alt.get("name", "—")
                     score = alt.get("trust_index", 0)
                     st.markdown(f"**{name}** — {score} / 10")
                     st.progress(int(score * 10))
@@ -284,27 +284,22 @@ elif st.session_state.tab == "insurance":
         render_alt(col1, left)
         render_alt(col2, right)
 
-        # 3-C  Reviews
         st.subheader("💬 Recent Reviews")
         for r in insurance_data.get("reviews", []):
             st.info(f"• {r}")
 
-        # 3-D  Description & Controversies
         st.subheader("📝 Company Background & Controversies")
         desc = insurance_data.get("description", "")
-        if isinstance(desc, list):  # handle array or single string
+        if isinstance(desc, list):
             desc = "\n".join(desc)
         st.markdown(desc, unsafe_allow_html=True)
 
-        # 3-E  Source Links
         st.subheader("🔗 Supporting Articles")
         for link in insurance_data.get("links", []):
             st.markdown(f"- [{link}]({link})")
+    elif run_analysis:
+        st.error("Insurance analysis returned no usable data.")
 
-    else:
-        st.error("Insurance analysis JSON not found or invalid.")
-
-    # Back button
     if st.button("← Back to Dashboard"):
         st.session_state.tab = "dashboard"
         st.rerun()
