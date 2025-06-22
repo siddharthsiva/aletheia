@@ -65,7 +65,7 @@ Healthcare is too often a maze of hidden fees, cryptic jargon, and opaque decisi
 |----------|------|
 | **Language / Runtime** | Python 3.12 |
 | **UI** | Streamlit |
-| **AI / LLM** | Google Gemini 1.5 Pro |
+| **AI / LLM** | Google Gemini 2.5 Flash + Letta Multi-model agents |
 | **Multi-Agent Toolkit** | **Custom orchestration layer** |
 | **Data Sources** | FDA Open Drug Data, Google Search, News APIs |
 | **Messaging** | Slack API |
