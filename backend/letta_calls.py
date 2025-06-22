@@ -2,7 +2,7 @@ from pypdf import PdfReader
 from letta_client import Letta
 import os
 import dotenv
-from pokepill.backend.pill_identifier import prod_img
+from .pill_identifier import prod_img
 import json
 import dotenv
 
@@ -64,7 +64,7 @@ class DocumentParser(Agent):
             text += page.extract_text()
         return text
     
-    def form_analysis(self, pdf, user_info):
+    def doc_parser(self, pdf, user_info):
         pdf_text = self.extract_text_with_pypdf(pdf)
         response = client.agents.messages.create(
             agent_id=os.getenv("DOCUMENT_PARSER_ID"),

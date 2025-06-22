@@ -9,6 +9,7 @@ from backend.user_data import (
     append_doctor_notes
 )
 from backend.insurance_probe import analyze_insurance
+from backend.letta_calls import *
 
 st.cache_data.clear()
 st.cache_resource.clear()
@@ -72,15 +73,30 @@ html, body, .main {
 </style>
 """, unsafe_allow_html=True)
 
+# Agentic Logic
+doc_parser = DocumentParser.getInstance()
+medicine_explainer = MedicineExplainer.getInstance()
+pill_identifier = PillIdentifier.getInstance()
+conversation = ConversationalInterface.getInstance()
+
 # --- Session State Initialization ---
 if "tab" not in st.session_state:
     st.session_state.tab = "dashboard"
+
+# Medication Logic
 if "medications" not in st.session_state:
     st.session_state.medications = [
         {"name": "Vitamin D Supplement", "time": time(8, 0)},
         {"name": "Blood Pressure Medicine", "time": time(12, 0)},
         {"name": "Evening Medication", "time": time(20, 0)},
     ]
+
+st.session_state.missed_medications = []
+st.session_state.current_time = datetime.now()
+for medication in st.session_state.medications:
+    if medication.time < st.session_state.current_time:
+        st.session_state.missed_medications.append({"name": medication.name})
+
 if "new_med_name" not in st.session_state:
     st.session_state.new_med_name = ""
 if "new_med_time" not in st.session_state:
@@ -99,8 +115,10 @@ if st.session_state.tab == "dashboard":
         contact = st.text_input("Contact Number")
         email = st.text_input("Email Address")
         consultant = st.text_input("Healthcare Consultant", value="Dr. Sarah Johnson", disabled=True)
-        history = st.text_area("Medical History", placeholder="Enter your medical history, allergies, and current conditions")
-        st.file_uploader("📎 Upload Medical Documents", type=["pdf", "jpg", "jpeg", "png"], key="med_doc")
+        # history = st.text_area("Medical History", placeholder="Enter your medical history, allergies, and current conditions")
+        document = st.file_uploader("📎 Upload Medical Documents", type=["pdf", "jpg", "jpeg", "png"], key="med_doc")
+        if document:
+            doc_parser.doc_parser(f'{full_name.split[0]}.json')
 
         st.session_state.profile.update({
             "full_name": full_name,
@@ -160,9 +178,30 @@ if st.session_state.tab == "dashboard":
         with cols[3]:
             if st.button("🗑️", key=f"delete_{i}"):
                 delete_index = i
+        with st.container():
+            if st.button("💊 Explain", key=f"explain_{i}"):
+                st.session_state[f"show_explain_{i}"] = not st.session_state.get(f"show_explain_{i}", False)
+            if st.session_state.get(f"show_explain_{i}", False):
+                with st.expander("Medication Explanation", expanded=True):
+                    explanation = medicine_explainer.medical_explainer(med["name"])
+                    st.write(explanation)
     if delete_index is not None:
         st.session_state.medications.pop(delete_index)
         st.rerun()
+
+    if st.session_state.missed_medications.length != 0:
+        with st.expender("Missed medications", expanded=False):
+            for i, med in enumerate(st.session_state.missed_medications):
+                st.write(med["name"])
+                user_question = st.text_input(f"Ask about missed: {med['name']}", key=f"missed_q_{i}")
+                if st.button(f"Ask for advice: {med['name']}", key=f"missed_{i}"):
+                    if user_question.strip():
+                        response = conversation.conversation(f"I missed my {med['name']}. {user_question}")
+                        st.info(response)
+                    else:
+                        response = conversation.conversation(f"I missed my {med['name']}. What should I do?")
+                        st.info(response)
+                    
 
     with st.expander("+ Add Medication", expanded=False):
         st.session_state.new_med_name = st.text_input("Medication Name", st.session_state.new_med_name, key="add_name")
@@ -310,15 +349,11 @@ elif st.session_state.tab == "insurance":
 elif st.session_state.tab == "scan":
     st.title("📷 Scan Medication")
 
-    method = st.radio("Choose input method:", ["Upload Image", "Use Camera"])
-
-    if method == "Upload Image":
-        image = st.file_uploader("Upload a medication image", type=["jpg", "jpeg", "png"])
-        if image:
-            st.image(image, width=300)
-            st.success("Image uploaded. (This would be analyzed by backend.)")
-    else:
-        st.info("Camera access is not supported directly in Streamlit. Please upload a photo instead.")
+    image = st.file_uploader("Upload a medication image", type=["jpg", "jpeg", "png"])
+    if image:
+        st.image(image, width=300)
+        response = pill_identifier.pill_identifier(image)
+        st.write(response)
 
     if st.button("Analyze Image"):
         st.success("✅ Image analysis complete. (Simulated)")
