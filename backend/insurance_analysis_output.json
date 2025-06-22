@@ -6,41 +6,47 @@
       "trust_index": 7
     },
     {
-      "name": "MetLife",
-      "trust_index": 8
+      "name": "USAA",
+      "trust_index": 9
     },
     {
-      "name": "Geico",
+      "name": "MetLife",
+      "trust_index": 7
+    },
+    {
+      "name": "GEICO",
       "trust_index": 7
     },
     {
       "name": "Farmers Insurance",
       "trust_index": 8
-    },
-    {
-      "name": "Liberty Mutual",
-      "trust_index": 8
     }
   ],
   "reviews": [
-    "After years of struggling with health coverage due to my diabetes, Ambetter was a lifesaver. Their plans through the marketplace actually covered my specialists and prescriptions without ridiculous out-of-pocket costs. The initial setup was a bit clunky, but once it was active, it's been a huge relief.",
-    "I bundled my auto and renters insurance with Geico, and the process was incredibly smooth. Their mobile app is fantastic for managing policies and getting quick quotes. While they don't offer individual health plans directly, their renters insurance was affordable and easy to set up for my condo.",
-    "Farmers Insurance has been great for my home and property needs. Their agents are knowledgeable, and I appreciate the personalized service. I haven't used their health partners, but for renters insurance, they've been transparent with billing and quick to respond to questions, even late at night through their online portal.",
-    "Liberty Mutual's customer service via their app is surprisingly good. I had a question about my policy late one evening, and their 24/7 chat support was very helpful. Their billing is clear, and I haven't encountered any hidden fees, which is a big plus after previous bad experiences.",
-    "MetLife is a solid choice for supplemental benefits, though not my primary health insurer. Their dental and vision plans are excellent, and their claims process is straightforward. For someone with pre-existing conditions, it's good to know there are reliable options for other insurance needs, and their reputation for reliability is well-deserved."
+    "Finding comprehensive health coverage with pre-existing conditions was daunting, but a marketplace plan offered manageable out-of-pocket costs, which was a huge relief.",
+    "The mobile app and 24/7 support are game-changers for my busy freelance schedule. I can manage policies and get quick answers anytime, anywhere.",
+    "After a previous denial, transparency was my top priority. This provider has been upfront about all costs and policy terms, which builds a lot of trust.",
+    "While their health insurance is excellent, I had to secure my renters policy separately. It would be convenient to bundle, but the quality of each coverage makes it worthwhile.",
+    "Customer service can sometimes have long wait times, but when I connect with a representative, they are usually very knowledgeable and helpful, especially with complex medical inquiries."
   ],
   "description": [
-    "**Ambetter:**\n*   Founded: 2014, as a product of Centene Corporation.\n*   Focus: Primarily offers health insurance plans on the Affordable Care Act (ACA) marketplace, designed to be affordable and accessible.\n*   Controversies: Has faced criticism regarding customer service quality, network limitations, and administrative issues in some states, though it remains a significant provider for marketplace plans.",
-    "**MetLife:**\n*   Founded: 1868, as Metropolitan Life Insurance Company.\n*   Focus: Global provider of insurance, annuities, and employee benefit programs. While known for life insurance, they also offer dental, vision, and group health benefits.\n*   Controversies: Has faced regulatory fines over practices like failing to pay pensions or mismanaging unclaimed policies, though generally maintains a strong financial standing and reputation.",
-    "**Geico:**\n*   Founded: 1936, as Government Employees Insurance Company.\n*   Focus: Best known for auto insurance, but also offers a wide range of other insurance products including renters, homeowners, and umbrella policies, often through partners. Does not typically offer individual comprehensive health insurance.\n*   Controversies: Generally has a strong public image; minor issues typically revolve around claims processing speed or rate increases, common to the industry.",
-    "**Farmers Insurance:**\n*   Founded: 1928, by two farmers.\n*   Focus: Offers a broad portfolio of insurance products including auto, home, life, business, and specialty coverage. They often work with partners for health insurance offerings.\n*   Controversies: Like many large insurers, has faced lawsuits regarding claims handling, premium increases, and agent practices, but remains a major player with a generally solid reputation.",
-    "**Liberty Mutual:**\n*   Founded: 1912, as Massachusetts Employees Insurance Association.\n*   Focus: One of the largest property and casualty insurers globally, offering auto, home, renters, and business insurance. Health insurance is typically offered through partnerships or group benefits.\n*   Controversies: Has encountered class-action lawsuits and regulatory scrutiny over claims practices, particularly after major natural disasters, and some customer complaints regarding rate hikes."
+    "**History of Insurance Industry:**",
+    "- The modern insurance industry evolved from ancient risk-sharing practices, with formal companies emerging in the 17th century.",
+    "- Health insurance gained prominence in the U.S. post-WWII, often tied to employment, while individual markets were more fragmented.",
+    "- The Affordable Care Act (ACA) of 2010 significantly reformed the individual health insurance market, introducing marketplaces and protections for pre-existing conditions.",
+    "- Renters insurance, a form of property insurance, protects personal belongings and provides liability coverage for tenants.",
+    "**Common Controversies & Concerns:**",
+    "- **Coverage Denials:** A frequent source of frustration for policyholders, especially concerning specific treatments, pre-existing conditions (though less common post-ACA), or complex claims.",
+    "- **Premium Increases:** Regular adjustments to premiums can strain budgets, often attributed to rising healthcare costs or claims experience.",
+    "- **Transparency Issues:** Lack of clear billing, complex policy language, and opaque claims processes can lead to distrust and confusion.",
+    "- **Customer Service Quality:** Inconsistent service, long wait times, or difficulty resolving issues are common complaints across the industry.",
+    "- **Out-of-Pocket Costs:** High deductibles, co-pays, and co-insurance can make healthcare expensive even with insurance, a key concern for those seeking 'low out-of-pocket' plans."
   ],
   "links": [
-    "https://www.ambetterhealth.com/about-us/",
-    "https://www.metlife.com/about-us/",
-    "https://www.geico.com/about/corporate/history/",
-    "https://www.farmers.com/about-us/",
-    "https://www.libertymutual.com/about-lm"
+    "https://www.healthcare.gov/glossary/affordable-care-act/",
+    "https://www.naic.org/index_consumer.htm",
+    "https://www.jdpower.com/business/insurance",
+    "https://www.consumerreports.org/insurance/",
+    "https://www.bbb.org/us/us/find-a-business/insurance"
   ]
 }
