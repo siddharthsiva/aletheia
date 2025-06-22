@@ -809,7 +809,53 @@ if st.session_state.tab == "dashboard":
                 # Only generate explanation if not already cached
                 explanation_key = f"explanation_{i}_{med['name']}"
                 if explanation_key not in st.session_state:
-                    st.session_state[explanation_key] = medicine_explainer.medicine_explainer(med["name"])
+                    raw_response = medicine_explainer.medicine_explainer(med["name"])
+                    
+                    # Debug: Show what we received
+                    # st.write(f"Debug - Raw response type: {type(raw_response)}")
+                    # st.write(f"Debug - Raw response: {str(raw_response)[:200]}...")
+                    
+                    # Parse JSON response and extract only the "response" field
+                    cleaned_response = raw_response
+                    try:
+                        # Handle string responses that might be JSON
+                        if isinstance(raw_response, str):
+                            # Try to parse as JSON
+                            if raw_response.strip().startswith('{') and raw_response.strip().endswith('}'):
+                                parsed_response = json.loads(raw_response)
+                                cleaned_response = parsed_response.get("response", raw_response)
+                            else:
+                                # Not JSON, use as is
+                                cleaned_response = raw_response
+                        # Handle dict responses
+                        elif isinstance(raw_response, dict):
+                            cleaned_response = raw_response.get("response", str(raw_response))
+                        else:
+                            # Other types, convert to string
+                            cleaned_response = str(raw_response)
+                            
+                        st.session_state[explanation_key] = cleaned_response
+                        
+                    except (json.JSONDecodeError, AttributeError) as e:
+                        # If parsing fails, use the raw response but try to clean it
+                        if isinstance(raw_response, str) and '"response":' in raw_response:
+                            # Try to extract response manually if JSON parsing failed
+                            try:
+                                start = raw_response.find('"response":"') + 12
+                                end = raw_response.find('","', start)
+                                if end == -1:
+                                    end = raw_response.find('"}', start)
+                                if start > 11 and end > start:
+                                    cleaned_response = raw_response[start:end].replace('\\"', '"')
+                                else:
+                                    cleaned_response = raw_response
+                            except:
+                                cleaned_response = raw_response
+                        else:
+                            cleaned_response = raw_response
+                        st.session_state[explanation_key] = cleaned_response
+                
+                # Display the cleaned response
                 st.info(st.session_state[explanation_key])
                 
         st.markdown("</div>", unsafe_allow_html=True)
@@ -843,9 +889,49 @@ if st.session_state.tab == "dashboard":
                     advice_key = f"advice_{i}_{med['name']}_{user_question}"
                     if advice_key not in st.session_state:
                         if user_question.strip():
-                            st.session_state[advice_key] = conversation.conversation(f"I missed my {med['name']}. {user_question}")
+                            raw_advice = conversation.conversation(f"I missed my {med['name']}. {user_question}")
                         else:
-                            st.session_state[advice_key] = conversation.conversation(f"I missed my {med['name']}. What should I do?")
+                            raw_advice = conversation.conversation(f"I missed my {med['name']}. What should I do?")
+                        
+                        # Parse JSON response and extract only the "response" field
+                        cleaned_advice = raw_advice
+                        try:
+                            # Handle string responses that might be JSON
+                            if isinstance(raw_advice, str):
+                                # Try to parse as JSON
+                                if raw_advice.strip().startswith('{') and raw_advice.strip().endswith('}'):
+                                    parsed_advice = json.loads(raw_advice)
+                                    cleaned_advice = parsed_advice.get("response", raw_advice)
+                                else:
+                                    # Not JSON, use as is
+                                    cleaned_advice = raw_advice
+                            # Handle dict responses
+                            elif isinstance(raw_advice, dict):
+                                cleaned_advice = raw_advice.get("response", str(raw_advice))
+                            else:
+                                # Other types, convert to string
+                                cleaned_advice = str(raw_advice)
+                                
+                            st.session_state[advice_key] = cleaned_advice
+                            
+                        except (json.JSONDecodeError, AttributeError) as e:
+                            # If parsing fails, try manual extraction
+                            if isinstance(raw_advice, str) and '"response":' in raw_advice:
+                                try:
+                                    start = raw_advice.find('"response":"') + 12
+                                    end = raw_advice.find('","', start)
+                                    if end == -1:
+                                        end = raw_advice.find('"}', start)
+                                    if start > 11 and end > start:
+                                        cleaned_advice = raw_advice[start:end].replace('\\"', '"')
+                                    else:
+                                        cleaned_advice = raw_advice
+                                except:
+                                    cleaned_advice = raw_advice
+                            else:
+                                cleaned_advice = raw_advice
+                            st.session_state[advice_key] = cleaned_advice
+                    
                     st.info(st.session_state[advice_key])
 
     # Add new medication
@@ -1179,19 +1265,93 @@ elif st.session_state.tab == "scan":
             if st.button("🔍 Analyze Image", use_container_width=True):
                 with st.spinner("🔍 Analyzing medication..."):
                     try:
-                        response = pill_identifier.pill_identifier(image)
+                        raw_response = pill_identifier.pill_identifier(image)
+                        
+                        # Parse JSON response and extract only the "response" field for medication name
+                        medication_name = raw_response
+                        try:
+                            # Handle string responses that might be JSON
+                            if isinstance(raw_response, str):
+                                # Try to parse as JSON
+                                if raw_response.strip().startswith('{') and raw_response.strip().endswith('}'):
+                                    parsed_response = json.loads(raw_response)
+                                    medication_name = parsed_response.get("response", raw_response)
+                                else:
+                                    # Not JSON, use as is
+                                    medication_name = raw_response
+                            # Handle dict responses
+                            elif isinstance(raw_response, dict):
+                                medication_name = raw_response.get("response", str(raw_response))
+                            else:
+                                # Other types, convert to string
+                                medication_name = str(raw_response)
+                                
+                        except (json.JSONDecodeError, AttributeError) as e:
+                            # If parsing fails, try manual extraction
+                            if isinstance(raw_response, str) and '"response":' in raw_response:
+                                try:
+                                    start = raw_response.find('"response":"') + 12
+                                    end = raw_response.find('","', start)
+                                    if end == -1:
+                                        end = raw_response.find('"}', start)
+                                    if start > 11 and end > start:
+                                        medication_name = raw_response[start:end].replace('\\"', '"')
+                                    else:
+                                        medication_name = raw_response
+                                except:
+                                    medication_name = raw_response
+                            else:
+                                medication_name = raw_response
+                        
                         st.success("✅ Medication identified!")
                         
                         st.markdown(f"""
                         <div style="background: rgba(255, 255, 255, 0.2); border-radius: 15px; 
                                     padding: 1rem; margin: 1rem 0; border-left: 4px solid var(--success-gradient);">
-                            <strong>Identified Medication:</strong> {response}
+                            <strong>Identified Medication:</strong> {medication_name}
                         </div>
                         """, unsafe_allow_html=True)
                         
                         # Get detailed analysis
                         with st.spinner("📋 Getting detailed information..."):
-                            analysis = medicine_explainer.medicine_explainer(response)
+                            raw_analysis = medicine_explainer.medicine_explainer(medication_name)
+                            
+                            # Parse JSON response and extract only the "response" field for analysis
+                            analysis = raw_analysis
+                            try:
+                                # Handle string responses that might be JSON
+                                if isinstance(raw_analysis, str):
+                                    # Try to parse as JSON
+                                    if raw_analysis.strip().startswith('{') and raw_analysis.strip().endswith('}'):
+                                        parsed_analysis = json.loads(raw_analysis)
+                                        analysis = parsed_analysis.get("response", raw_analysis)
+                                    else:
+                                        # Not JSON, use as is
+                                        analysis = raw_analysis
+                                # Handle dict responses
+                                elif isinstance(raw_analysis, dict):
+                                    analysis = raw_analysis.get("response", str(raw_analysis))
+                                else:
+                                    # Other types, convert to string
+                                    analysis = str(raw_analysis)
+                                    
+                            except (json.JSONDecodeError, AttributeError) as e:
+                                # If parsing fails, try manual extraction
+                                if isinstance(raw_analysis, str) and '"response":' in raw_analysis:
+                                    try:
+                                        start = raw_analysis.find('"response":"') + 12
+                                        end = raw_analysis.find('","', start)
+                                        if end == -1:
+                                            end = raw_analysis.find('"}', start)
+                                        if start > 11 and end > start:
+                                            analysis = raw_analysis[start:end].replace('\\"', '"')
+                                        else:
+                                            analysis = raw_analysis
+                                    except:
+                                        analysis = raw_analysis
+                                else:
+                                    analysis = raw_analysis
+                            
                             st.markdown("### 📋 Medication Information")
                             st.markdown(f"""
                             <div style="background: rgba(255, 255, 255, 0.1); border-radius: 15px; 
