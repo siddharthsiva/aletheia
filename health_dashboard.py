@@ -44,7 +44,7 @@ html, body, .main {
     font-weight: 600;
 }
 .stProgress > div > div {
-    background-color: #ff69b4 !important;
+    background-color: #ffffff !important;
 }
 .stMetric {
     background-color: #fff;
@@ -70,6 +70,29 @@ html, body, .main {
 }
 .insurance-slider label, .insurance-slider div {
     font-size: 18px !important;
+            
+/* ─────────  PROGRESS-BAR RE-SKIN  ───────── */
+
+/* outer rail – keep rounded, make track blend with page */
+.stProgress > div{
+    border-radius:999px;
+    background:#ffffff !important;      /* same pink-tint background as page */
+    overflow:hidden;
+}
+
+/* inner fill – neutral gray instead of pink */
+.stProgress > div > div{
+    border-radius:999px !important;
+    background:#d9d9d9 !important;      /* light gray */
+}
+
+/* percentage label – white pill so it doesn’t inherit pink */
+.stProgress span{
+    background:#ffffff !important;
+    color:#d6336c;                       /* keep your headline pink text */
+    padding:2px 6px;
+    border-radius:6px;
+}
 }
 </style>
 """, unsafe_allow_html=True)
@@ -170,7 +193,9 @@ if st.session_state.tab == "dashboard":
         total = len(st.session_state.medications)
         taken = sum([1 for i in range(total) if st.session_state.get(f"taken_{i}", False)])
         percent = taken / total if total > 0 else 0.0
-        st.progress(percent, f"{int(percent * 100)}% taken")
+        st.progress(percent, f"{round(percent * 100)}% taken")
+
+
 
     st.subheader("Medication Schedule")
     delete_index = None
