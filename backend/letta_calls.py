@@ -5,6 +5,7 @@ import dotenv
 from .pill_identifier import prod_img
 import json
 import dotenv
+from .general_history import *
 
 # Load environment variables
 dotenv.load_dotenv()
@@ -64,7 +65,7 @@ class DocumentParser(Agent):
             text += page.extract_text()
         return text
     
-    def doc_parser(self, pdf, user_info):
+    def doc_parser(self, pdf, user_info=""):
         pdf_text = self.extract_text_with_pypdf(pdf)
         response = client.agents.messages.create(
             agent_id=os.getenv("DOCUMENT_PARSER_ID"),
@@ -76,7 +77,7 @@ class DocumentParser(Agent):
             ]
         )
         for message in response.messages:
-            if message.role == "assistant_message":
+            if message.message_type == "assistant_message":
                 return message.content
     
 class InsuranceRecommender(Agent):
@@ -189,5 +190,5 @@ class ConversationalInterface(Agent):
             ]
         )
         for message in response.messages:
-            if message.role == "assistant_message":
-                return message.content
+            if message.message_type == "assistant_message":
+                return message.content["Response"]

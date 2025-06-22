@@ -28,7 +28,7 @@ def append_doctor_notes(name, new_doctor_notes):
     with open(f'users/{name}.json', 'w') as f:
         json.dump(data, f, indent=0)
 
-def read_doctor_notes():
+def read_doctor_notes(name):
     """
     Read the doctor's notes from a file.
     """

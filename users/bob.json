@@ -1,1 +1,86 @@
-{"medical_history": [], "doctor_notes": []}
+{
+"medical_history": [
+{
+"patient_information": {
+"name": "John Doe",
+"date_of_birth": "1990-05-14",
+"sex": "Male",
+"blood_type": "O+",
+"allergies": [
+"Penicillin"
+],
+"primary_care_physician": "Dr. Emily Smith",
+"last_visit": "2025-04-12"
+},
+"medical_conditions": [
+{
+"date": "2022-01-20",
+"condition": "Hypertension",
+"treatment": "Lisinopril",
+"status": "ongoing"
+},
+{
+"date": "2023-03-15",
+"condition": "Seasonal Allergies",
+"treatment": "Antihistamines",
+"status": "ongoing"
+},
+{
+"date": "2024-11-02",
+"condition": "Vitamin D Deficiency",
+"treatment": "Vitamin D Supplements",
+"status": "ongoing"
+},
+{
+"date": "2025-02-10",
+"condition": "Routine Check-up",
+"treatment": "N/A",
+"status": "completed"
+}
+]
+},
+{
+"patient_information": {
+"name": "John Doe",
+"date_of_birth": "1990-05-14",
+"sex": "Male",
+"blood_type": "O+",
+"allergies": [
+"Penicillin"
+],
+"primary_care_physician": "Dr. Emily Smith",
+"last_visit": "2025-04-12"
+},
+"medical_conditions": [
+{
+"date": "2022-01-20",
+"condition": "Hypertension",
+"treatment": "Lisinopril",
+"status": "ongoing"
+},
+{
+"date": "2023-03-15",
+"condition": "Seasonal Allergies",
+"treatment": "Antihistamines",
+"status": "ongoing"
+},
+{
+"date": "2024-11-02",
+"condition": "Vitamin D Deficiency",
+"treatment": "Vitamin D Supplements",
+"status": "ongoing"
+},
+{
+"date": "2025-02-10",
+"condition": "Routine Check-up",
+"treatment": "N/A",
+"status": "completed"
+}
+]
+}
+],
+"doctor_notes": [
+"Medical document analysis completed. Patient record shows name as John Doe with DOB 1990-05-14, but user reference indicates Bob.json - potential name discrepancy noted for verification. Successfully extracted complete medical history including current hypertension management with Lisinopril, seasonal allergy treatment, vitamin D supplementation, and recent routine check-up. Penicillin allergy documented. All medical data has been structured and organized for official record keeping.",
+"Repeated medical document analysis. Persistent name discrepancy between document (John Doe) and user reference (Bob.json) requires immediate clarification. Medical history extraction completed with standard protocol, documenting ongoing conditions of hypertension, seasonal allergies, and vitamin D deficiency, along with most recent routine check-up."
+]
+}
