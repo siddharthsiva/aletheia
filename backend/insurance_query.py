@@ -5,7 +5,7 @@ Gemini JSON-only insurance-intel probe with automatic fence-stripping.
 import os, json, re, google.generativeai as genai
 
 # ── CONFIG ────────────────────────────────────────────────────────────────
-genai.configure(api_key="AIzaSyAutG477XSxKK097yrZyTYFBmPyoWTcwT8") # REMEMBER TO REMOVE THIS KEY BEFORE COMMITTING!
+genai.configure(api_key="") # REMEMBER TO REMOVE THIS KEY BEFORE COMMITTING!
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # ── INPUTS ────────────────────────────────────────────────────────────────
