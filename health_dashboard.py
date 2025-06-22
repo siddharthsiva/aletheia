@@ -15,7 +15,7 @@ from backend.general_history import *
 st.cache_data.clear()
 st.cache_resource.clear()
 
-st.set_page_config(page_title="Health Tracker", layout="wide")
+st.set_page_config(page_title="Aletheia", layout="wide")
 
 # --- Custom CSS ---
 st.markdown("""
@@ -147,7 +147,7 @@ if st.session_state.tab == "dashboard":
 
 # --- Dashboard Tab ---
 if st.session_state.tab == "dashboard":
-    st.title("🌸 Health Tracker Dashboard")
+    st.title("🌸 Welcome To Aletheia!")
 
     col1, col2, col3 = st.columns(3)
     with col1:
