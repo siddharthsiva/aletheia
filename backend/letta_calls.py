@@ -2,17 +2,19 @@ from pypdf import PdfReader
 from letta_client import Letta
 import os
 import dotenv
-from .pill_identifier import prod_img
 import json
-import dotenv
+import google.generativeai as genai
+from .pill_identifier import prod_img
 from .general_history import *
 
 # Load environment variables
 dotenv.load_dotenv()
 
+# Configure LeTTA and Gemini
 client = Letta(token=os.getenv("LETTA_API_KEY"))
+genai.configure(api_key=os.getenv("GENAI_API_KEY"))
 
-def agents(): 
+def agents():
     """Returns a dictionary of agent instances."""
     return {
         "document_parser": DocumentParser.getInstance(),
@@ -34,7 +36,6 @@ class Agent():
         """Initializes the agent by retrieving its configuration."""
         if not self.id:
             raise ValueError(f"{self.name} ID environment variable is not set.")
-        
         self.agent = self.client.agents.retrieve(agent_id=self.id)
     
     def extract_response_info(self, response_message):
@@ -57,7 +58,6 @@ class DocumentParser(Agent):
             DocumentParser._instance = DocumentParser()
         return DocumentParser._instance
     
-    
     def extract_text_with_pypdf(self, pdf):
         reader = PdfReader(pdf)
         text = ""
@@ -79,7 +79,7 @@ class DocumentParser(Agent):
         for message in response.messages:
             if message.message_type == "assistant_message":
                 return message.content
-    
+
 class InsuranceRecommender(Agent):
     _instance = None
 
@@ -95,7 +95,7 @@ class InsuranceRecommender(Agent):
         if InsuranceRecommender._instance is None:
             InsuranceRecommender._instance = InsuranceRecommender()
         return InsuranceRecommender._instance
-    
+
 class MedicineExplainer(Agent):
     _instance = None
 
@@ -122,12 +122,10 @@ class MedicineExplainer(Agent):
                 }
             ]
         )
-        print(response)
         for message in response.messages:
             if message.message_type == "assistant_message":
-                print(message)
                 return message.content
-    
+
 class PillIdentifier(Agent):
     _instance = None
 
@@ -147,7 +145,6 @@ class PillIdentifier(Agent):
     def pill_identifier(self, image):
         result = prod_img(image)
         if result is None:
-            print(result)
             return "Could not extract information"
         return json.dumps(result, indent=2)
     
@@ -165,6 +162,29 @@ class PillIdentifier(Agent):
             if message.message_type == "assistant_message":
                 return message.content
     
+    def find_cheapest_price(self, identification_json):
+        try:
+            drug_info = json.loads(identification_json)
+            drug_name = drug_info.get("generic_name") or drug_info.get("brand_name")
+            if not drug_name:
+                return {"error": "Drug name not found in extracted info."}
+
+            prompt = f"""
+            Find the cheapest US online pharmacies selling '{drug_name}'.
+            Provide a list in JSON format with:
+            - pharmacy name
+            - estimated price
+            - direct link (if available)
+            Only return the JSON list. No explanation.
+            """
+
+            model = genai.GenerativeModel(model_name="gemini-1.5-pro")
+            response = model.generate_content(prompt)
+            return json.loads(response.text)
+
+        except Exception as e:
+            return {"error": f"Gemini price search failed: {str(e)}"}
+
 class ConversationalInterface(Agent):
     _instance = None
 
@@ -194,3 +214,13 @@ class ConversationalInterface(Agent):
         for message in response.messages:
             if message.message_type == "assistant_message":
                 return message.content["Response"]
+
+# Export for cleaner imports
+__all__ = [
+    "agents",
+    "DocumentParser",
+    "InsuranceRecommender",
+    "MedicineExplainer",
+    "PillIdentifier",
+    "ConversationalInterface"
+]

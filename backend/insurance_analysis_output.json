@@ -1,37 +1,46 @@
 {
-  "name": "Blue Cross Blue Shield",
-  "trust_index": 5.5,
+  "name": "Cigna",
+  "trust_index": 4.5,
+  "coverage_quality": 60,
+  "affordability": 55,
+  "customer_service": 45,
   "alternatives": [
     {
       "name": "Aetna",
       "trust_index": 6
     },
     {
-      "name": "Cigna",
-      "trust_index": 6.5
+      "name": "Humana",
+      "trust_index": 6
     },
     {
       "name": "Kaiser Permanente",
       "trust_index": 7
     },
     {
-      "name": "UnitedHealthcare",
-      "trust_index": 4.5
+      "name": "Blue Cross Blue Shield",
+      "trust_index": 6
     }
   ],
   "reviews": [
-    "As a small business owner, the administrative burden with BCBS for our group plan is overwhelming; claims are frequently mishandled, causing significant delays and extra work for our team.",
-    "We've experienced year-over-year premium hikes with BCBS that feel entirely unexplained, making it incredibly difficult to budget for our employees' health benefits without compromising quality.",
-    "The lack of transparency in BCBS's billing practices is a constant frustration; hidden fees and unexpected charges appear regularly, eroding trust and adding to our administrative load.",
-    "While their network is broad, negotiating effective solutions for our small business with BCBS has been like pulling teeth, often leaving us feeling unsupported and undervalued.",
-    "Our small business was unfortunately caught in a dispute over a denied claim, which involved a protracted legal battle with BCBS, costing us significant time and resources before a resolution was reached."
+    "Cigna recently denied my critical physical therapy claims, citing an 'algorithm' and making it impossible to get actual medical review. My treatment was essential, and now I'm facing huge bills.",
+    "The premiums for our small business group plan have skyrocketed over the past two years with Cigna, making it incredibly difficult to provide affordable coverage for our employees. We're constantly looking for alternatives.",
+    "Dealing with Cigna's customer service is a nightmare. Long wait times, representatives who can't answer complex questions, and constant transfers. Getting a resolution for even simple issues is a full-time job.",
+    "My claim for a necessary procedure was initially denied by Cigna without explanation. After weeks of appeals and providing extensive documentation, it was finally approved, but the stress and hassle were immense.",
+    "While some routine claims go through smoothly, any slightly complex or expensive medical issue seems to face immediate pushback or denial from Cigna. It feels like they're designed to make accessing care difficult."
   ],
-  "description": "Blue Cross Blue Shield (BCBS) is a federation of 33 independent health insurance companies and licensees in the United States, providing health coverage to over 118 million people. Originating in the 1920s and 1930s as non-profit hospital and physician prepayment plans, they merged in 1982 to form the Blue Cross and Blue Shield Association, which licenses its brands and enforces standards.\n• Regulatory Scrutiny: BCBS companies have faced numerous state and federal antitrust investigations and lawsuits alleging anti-competitive practices, such as restricting competition among themselves and with other insurers.\n• Denied Claims and Prior Authorization: Frequent complaints include a high rate of claim denials and stringent prior authorization requirements that can delay or prevent necessary medical care, leading to patient and provider frustration.\n• Premium Increases and Affordability: Many policyholders, including small businesses, report consistent and significant premium increases that are often perceived as unjustified, putting a strain on budgets and access to coverage.\n• Administrative Complexity: The decentralized structure can lead to inconsistent policies and administrative processes across different state plans, complicating multi-state coverage and increasing administrative burden for employers.\n• Lawsuits over Reimbursement: Individual BCBS entities have been sued by providers for alleged underpayment or unfair reimbursement practices, impacting provider networks and patient access.",
+  "description": [
+    "Cigna Group, formerly Cigna, is an American multinational managed healthcare and insurance company formed in 1982 by the merger of Connecticut General Life Insurance Company and INA Corporation. It provides health insurance, dental plans, life insurance, and other health-related services, serving millions of customers globally, including a significant presence in the employer-sponsored and individual health insurance markets.",
+    "• **Automated Claim Denials Controversy:** In February 2024, ProPublica and STAT News reported that Cigna used an automated system, the PxDx tool, and employed two doctors to deny hundreds of thousands of claims within a month without individual patient file review, leading to widespread consumer outcry and potential legal action.",
+    "• **Lawsuits over Denials:** Following reports of automated denials, Cigna has faced a wave of new class-action lawsuits alleging that the company unlawfully denied medically necessary care by using algorithms instead of proper medical review.",
+    "• **Consistent Customer Service Complaints:** Across various review platforms, customers frequently report long wait times, difficulty reaching knowledgeable representatives, and frustrating processes for resolving billing errors or denied claims.",
+    "• **Rising Premiums and Out-of-Pocket Costs:** Many policyholders, particularly small business owners like yourself, express frustration over continuous premium increases and high deductibles, co-pays, and co-insurance, which can lead to significant out-of-pocket expenses even with coverage."
+  ],
   "links": [
-    "https://www.justice.gov/opa/pr/justice-department-announces-agreement-resolve-anticompetitive-restraints-between-blue-cross",
-    "https://www.kff.org/health-reform/fact-sheet/explaining-health-care-reform-prior-authorization/",
-    "https://www.bbb.org/us/us/find-a-business/insurance/blue-cross-blue-shield",
-    "https://www.forbes.com/advisor/health-insurance/blue-cross-blue-shield-review/",
-    "https://www.consumerreports.org/health-insurance/health-insurance-companies-are-denying-prior-authorization-requests-a1078728956/"
+    "https://www.propublica.org/article/cigna-doctors-alleged-denied-300000-claims-30-days",
+    "https://www.classaction.org/news/cigna-lawsuits-pile-up-after-report-details-automated-denial-process.html",
+    "https://www.bbb.org/us/ct/bloomfield/profile/health-insurance/cigna-health-and-life-insurance-company-0111-87002078",
+    "https://www.jdpower.com/business/insurance/health-insurance-study",
+    "https://www.consumerreports.org/health-insurance/"
   ]
 }
