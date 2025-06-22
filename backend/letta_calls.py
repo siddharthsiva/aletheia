@@ -148,37 +148,37 @@ class PillIdentifier(Agent):
             return "Could not extract information"
         return json.dumps(result, indent=2)
     
-    def pill_explainer(self, identification_json):
+    def pill_explainer(self, medication_name):
         response = client.agents.messages.create(
             agent_id=os.getenv("PILL_IDENTIFIER_ID"),
             messages=[
                 {
                     "role": "user",
-                    "content": f"Please use the identification json from our image identifier to provide information on the provided medicine: {identification_json}"
+                    "content": f"Please provide information on the provided medicine: {medication_name}"
                 }
             ]
         )
         for message in response.messages:
             if message.message_type == "assistant_message":
                 return message.content
-    
-    def find_cheapest_price(self, identification_json):
+
+    def find_cheapest_price(self, medication_name):
         try:
-            drug_info = json.loads(identification_json)
+            drug_info = json.loads(medication_name)
             drug_name = drug_info.get("generic_name") or drug_info.get("brand_name")
             if not drug_name:
                 return {"error": "Drug name not found in extracted info."}
 
             prompt = f"""
-            Find the cheapest US online pharmacies selling '{drug_name}'.
-            Provide a list in JSON format with:
-            - pharmacy name
-            - estimated price
-            - direct link (if available)
-            Only return the JSON list. No explanation.
+            Find and return the link for the cheapest price of the drug named '{drug_name}'.
+            Make sure it is from a reputable source.
+            return the link in a json with the following fields. Include no other text in your response.:
+                "drug_name": "<drug_name>",
+                "price": "<price>",
+                "link": "<link>"
             """
 
-            model = genai.GenerativeModel(model_name="gemini-1.5-pro")
+            model = genai.GenerativeModel(model_name="gemini-2.5-flash")
             response = model.generate_content(prompt)
             return json.loads(response.text)
 

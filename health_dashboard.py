@@ -1357,43 +1357,55 @@ elif st.session_state.tab == "scan":
                         
                         # Get detailed analysis
                         with st.spinner("📋 Getting detailed information..."):
-                            raw_analysis = medicine_explainer.medicine_explainer(medication_name)
+                            raw_analysis = pill_identifier.pill_explainer(medication_name)
+                            pricing_info = pill_identifier.find_cheapest_price(medication_name)
                             
-                            # Parse JSON response and extract only the "response" field for analysis
-                            analysis = raw_analysis
                             try:
-                                # Handle string responses that might be JSON
-                                if isinstance(raw_analysis, str):
-                                    # Try to parse as JSON
-                                    if raw_analysis.strip().startswith('{') and raw_analysis.strip().endswith('}'):
-                                        parsed_analysis = json.loads(raw_analysis)
-                                        analysis = parsed_analysis.get("response", raw_analysis)
-                                    else:
-                                        # Not JSON, use as is
-                                        analysis = raw_analysis
-                                # Handle dict responses
-                                elif isinstance(raw_analysis, dict):
-                                    analysis = raw_analysis.get("response", str(raw_analysis))
-                                else:
-                                    # Other types, convert to string
-                                    analysis = str(raw_analysis)
+                                parsed_analysis = json.loads(raw_analysis)
+                                analysis = parsed_analysis['summary']
+                            except: 
+                                analysis = raw_analysis
+
+                            if pricing_info:
+                                analysis += f"\n\n** Pricing Information:**\nLink to buy: {pricing_info['link']}\nPrice: ${pricing_info['price']}"
+
+                            # raw_analysis = medicine_explainer.medicine_explainer(medication_name)
+                            
+                            # # Parse JSON response and extract only the "response" field for analysis
+                            # analysis = raw_analysis
+                            # try:
+                            #     # Handle string responses that might be JSON
+                            #     if isinstance(raw_analysis, str):
+                            #         # Try to parse as JSON
+                            #         if raw_analysis.strip().startswith('{') and raw_analysis.strip().endswith('}'):
+                            #             parsed_analysis = json.loads(raw_analysis)
+                            #             analysis = parsed_analysis.get("response", raw_analysis)
+                            #         else:
+                            #             # Not JSON, use as is
+                            #             analysis = raw_analysis
+                            #     # Handle dict responses
+                            #     elif isinstance(raw_analysis, dict):
+                            #         analysis = raw_analysis.get("response", str(raw_analysis))
+                            #     else:
+                            #         # Other types, convert to string
+                            #         analysis = str(raw_analysis)
                                     
-                            except (json.JSONDecodeError, AttributeError) as e:
-                                # If parsing fails, try manual extraction
-                                if isinstance(raw_analysis, str) and '"response":' in raw_analysis:
-                                    try:
-                                        start = raw_analysis.find('"response":"') + 12
-                                        end = raw_analysis.find('","', start)
-                                        if end == -1:
-                                            end = raw_analysis.find('"}', start)
-                                        if start > 11 and end > start:
-                                            analysis = raw_analysis[start:end].replace('\\"', '"')
-                                        else:
-                                            analysis = raw_analysis
-                                    except:
-                                        analysis = raw_analysis
-                                else:
-                                    analysis = raw_analysis
+                            # except (json.JSONDecodeError, AttributeError) as e:
+                            #     # If parsing fails, try manual extraction
+                            #     if isinstance(raw_analysis, str) and '"response":' in raw_analysis:
+                            #         try:
+                            #             start = raw_analysis.find('"response":"') + 12
+                            #             end = raw_analysis.find('","', start)
+                            #             if end == -1:
+                            #                 end = raw_analysis.find('"}', start)
+                            #             if start > 11 and end > start:
+                            #                 analysis = raw_analysis[start:end].replace('\\"', '"')
+                            #             else:
+                            #                 analysis = raw_analysis
+                            #         except:
+                            #             analysis = raw_analysis
+                            #     else:
+                            #         analysis = raw_analysis
                             
                             st.markdown("### 📋 Medication Information")
                             st.markdown(f"""
