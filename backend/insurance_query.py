@@ -5,7 +5,7 @@ Gemini JSON-only insurance-intel probe with automatic fence-stripping.
 import os, json, re, google.generativeai as genai
 
 # ── CONFIG ────────────────────────────────────────────────────────────────
-genai.configure(api_key="") # REMEMBER TO REMOVE THIS KEY BEFORE COMMITTING!
+genai.configure(api_key="AIzaSyAutG477XSxKK097yrZyTYFBmPyoWTcwT8") # REMEMBER TO REMOVE THIS KEY BEFORE COMMITTING!
 model = genai.GenerativeModel("gemini-2.5-flash")
 
 # ── INPUTS ────────────────────────────────────────────────────────────────
@@ -27,6 +27,7 @@ TASK ▶ For the insurer "{insurance_query}", analyse reputation, lawsuits, revi
 tailor results to the USER_CONTEXT. Respond **only** with valid JSON matching:
 
 {{
+"name": Name of the insurance company
   "trust_index": <float 0-10>,
   "alternatives": [<up to 4 insurer names>],
   "reviews": [<5 public customer reviews>],

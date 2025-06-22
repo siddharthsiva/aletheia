@@ -7,6 +7,20 @@ st.cache_resource.clear()
 
 st.set_page_config(page_title="Health Tracker", layout="wide")
 
+
+# ── 1. LOAD GEMINI ANALYSIS JSON ───────────────────────────────────────────
+@st.cache_data(show_spinner=False)
+def load_insurance_json(path="./backend/insurance_analysis_output.json"):
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        st.warning(f"Could not read {path}: {e}")
+        return None
+
+insurance_data = load_insurance_json()
+
+
 # --- Custom CSS for Modern Pink UI ---
 st.markdown("""
 <style>
@@ -183,49 +197,65 @@ if st.session_state.tab == "dashboard":
             st.rerun()
 
 # --- Insurance Tab ---
+# --- Insurance Tab ---
 elif st.session_state.tab == "insurance":
     st.markdown('<div class="insurance-container">', unsafe_allow_html=True)
     st.title("🛡️ Insurance Review")
+
+    # 2. Provider input (optional – it just echoes back)
     provider = st.text_input("Insurance Provider")
-    show_score = st.button("Submit Provider")
 
-    st.subheader("📈 Overall Score")
-    with st.container():
-        st.markdown('<div class="insurance-slider">', unsafe_allow_html=True)
-        coverage = st.slider("Coverage Quality", 0, 100, 75)
-        affordability = st.slider("Affordability", 0, 100, 60)
-        service = st.slider("Customer Service", 0, 100, 80)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # 3. Show Gemini data if available
+    if insurance_data:
+        # 3-A  Trust Index
+        st.subheader("📈 Overall Trust Index")
+        trust = insurance_data.get("trust_index", 0)
+        st.metric(label=f"{provider or 'Selected provider'}", value=f"{trust} / 10")
+        st.progress(int(trust * 10))
 
-    st.subheader("💬 Summary")
-    st.text_area("AI-generated review", "This insurance provider offers decent coverage with reasonable premiums.")
+        # 3-B  Alternatives
+        st.subheader("🏆 Alternatives (Trust Index)")
+        col1, col2 = st.columns(2)
+        alts = insurance_data.get("alternatives", [])
+        left  = alts[: len(alts)//2 + len(alts)%2]
+        right = alts[len(left):]
 
-    if show_score and provider.strip():
-        avg_score = round((coverage + affordability + service) / 30)
-        st.markdown(f"<div class='insurance-score'>Average score for <b>{provider}</b>: <b>{avg_score} / 10</b></div>", unsafe_allow_html=True)
+        def render_alt(column, items):
+            with column:
+                for alt in items:
+                    name  = alt.get("name", "—")
+                    score = alt.get("trust_index", 0)
+                    st.markdown(f"**{name}** — {score} / 10")
+                    st.progress(int(score * 10))
 
-    st.subheader("🏆 Alternatives (Avg Rating)")
-    alternatives = {
-        "HealthFirst": 8,
-        "CareShield": 7,
-        "WellSure": 7,
-        "OptiCare": 8,
-        "SafeGuard": 6
-    }
+        render_alt(col1, left)
+        render_alt(col2, right)
 
-    col1, col2 = st.columns(2)
-    with col1:
-        for name in ["HealthFirst", "CareShield", "WellSure"]:
-            st.markdown(f"**{name}** — {alternatives[name]} / 10")
-            st.progress(alternatives[name] * 10)
-    with col2:
-        for name in ["OptiCare", "SafeGuard"]:
-            st.markdown(f"**{name}** — {alternatives[name]} / 10")
-            st.progress(alternatives[name] * 10)
+        # 3-C  Reviews
+        st.subheader("💬 Recent Reviews")
+        for r in insurance_data.get("reviews", []):
+            st.info(f"• {r}")
 
+        # 3-D  Description & Controversies
+        st.subheader("📝 Company Background & Controversies")
+        desc = insurance_data.get("description", "")
+        if isinstance(desc, list):  # handle array or single string
+            desc = "\n".join(desc)
+        st.markdown(desc, unsafe_allow_html=True)
+
+        # 3-E  Source Links
+        st.subheader("🔗 Supporting Articles")
+        for link in insurance_data.get("links", []):
+            st.markdown(f"- [{link}]({link})")
+
+    else:
+        st.error("Insurance analysis JSON not found or invalid.")
+
+    # Back button
     if st.button("← Back to Dashboard"):
         st.session_state.tab = "dashboard"
         st.rerun()
+
     st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Scan Medication Tab ---
